@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>
+<svg width="281" height="244" viewBox="0 0 281 244" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M63.3998 183.9C56.2998 193.2 52.6998 199.2 53.9998 200.5" stroke="#FFCA08" stroke-width="3.693" stroke-miterlimit="10" stroke-linecap="round"/>
+<path d="M42.0999 133.6C18.3999 165 5.79988 184.9 8.89988 187.7" stroke="#FFCA08" stroke-width="15.911" stroke-miterlimit="10" stroke-linecap="round"/>
+<path d="M76.9999 198.3C69.8999 207.6 66.2999 213.6 67.5999 214.9" stroke="#FFCA08" stroke-width="3.693" stroke-miterlimit="10" stroke-linecap="round"/>
+<path d="M159 243.7C226.213 243.7 280.7 189.213 280.7 122C280.7 54.787 226.213 0.300049 159 0.300049C91.7868 0.300049 37.2998 54.787 37.2998 122C37.2998 189.213 91.7868 243.7 159 243.7Z" fill="#000032"/>
+<path d="M168.4 95.6C175.2 91.1 181.8 86.4 188.3 81.5" stroke="#FFCA08" stroke-width="7.3054" stroke-miterlimit="10"/>
+<path d="M203.3 115.8L228.2 47.4L156.5 60L203.3 115.8Z" fill="#FFCA08"/>
+<path d="M14.0999 187.4C20.6999 196.5 79.7998 165.1 146.2 117.3C158.7 108.3 170.6 99.4001 181.5 90.7001" stroke="#FFCA08" stroke-width="27.063" stroke-miterlimit="10" stroke-linecap="round"/>
+<path d="M55.5999 200.6C60.4999 207.4 104.5 184 153.8 148.5C163.1 141.8 171.9 135.2 180.1 128.7" stroke="#FFCA08" stroke-width="7.9424" stroke-miterlimit="10" stroke-linecap="round"/>
+<path d="M68.8999 215.3C73.7999 222.1 107.8 205.9 144.8 179.3C151.8 174.3 158.3 169.2 164.4 164.3" stroke="#FFCA08" stroke-width="6.8782" stroke-miterlimit="10" stroke-linecap="round"/>
+</svg>
