@@ -3,11 +3,13 @@
 import {useState} from "react"
 import Image from "next/image"
 import Btn2 from "@/components/buttons/btn.2/btn.2";
+import ModalSystem from "@/components/sections/system.2/modal.system";
 
-const CardProduct = (props:{referencia:any}):JSX.Element=>{
+const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
 
     const media = JSON.parse(props.referencia.media);
     const [imgActive, setImgActive] = useState<string>(media.img1);
+    const [modalSystem, setModalSystem] = useState<boolean>(false);
 
     const handleChangeImg = (urlImg1:string,urlImg2:string,index:number):void=>{
 
@@ -28,6 +30,20 @@ const CardProduct = (props:{referencia:any}):JSX.Element=>{
     
 
     return<>
+        {
+            modalSystem
+            &&
+            <ModalSystem
+                setStateSystem={setModalSystem}
+                stateSystem={modalSystem}
+                references={props.referencias}
+                imgInit={media.img2}
+                nombreSystem={props.referencia.sistema_nombre}
+                reference={props.referencia}
+
+            />
+        }
+
         <section className="m-2 p-2 min-w-[300px] max-w-[303px] h-[490px] bg-white rounded-[6px]  shadow-[0px_0px_6px_rgba(0,0,0,0.2)] ml-[6px] mr-[20px]">
             <div className="container-img w-[100%] h-[47%] relative">
                 <Image
@@ -50,18 +66,21 @@ const CardProduct = (props:{referencia:any}):JSX.Element=>{
                     height={40}
                     width={40}
                     className="border-[4px] border-[#4a0083] rounded-[3px] ml-[5px] mr-[5px]"
-                    onClick={()=>handleChangeImg(media.img1,media.img2,1)}
+                    
                 />
 
-                <Image
-                    id={media.img2}
-                    src={media.img2}
-                    alt="Picture of the author"
-                    height={40}
-                    width={40}
-                    className="border-[4px] border-[#c9c9c9] rounded-[3px] ml-[5px] mr-[5px]"
-                    onClick={()=>handleChangeImg(media.img1,media.img2,2)}
-                />
+                {/*
+                    <Image
+                        id={media.img2}
+                        src={media.img2}
+                        alt="Picture of the author"
+                        height={40}
+                        width={40}
+                        className="border-[4px] border-[#c9c9c9] rounded-[3px] ml-[5px] mr-[5px]"
+                        onClick={()=>handleChangeImg(media.img1,media.img2,2)}
+                    />
+                */
+                }
 
 
             </div>
@@ -81,7 +100,7 @@ const CardProduct = (props:{referencia:any}):JSX.Element=>{
                 </p>
 
             </div>
-            <div className="container-button w-[100%] h-[15%] flex items-center justify-center">
+            <div onClick={()=>setModalSystem(!modalSystem)} className="container-button w-[100%] h-[15%] flex items-center justify-center">
                 <Btn2/>
             </div>
         </section>

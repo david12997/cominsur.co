@@ -284,13 +284,6 @@ const SectionCatalogoApp = ():JSX.Element=>{
 
                 <div className="p-2 md:pt-6 flex md:flex-wrap  buscador-catalogo overflow-x-scroll md:overflow-x-hidden  w-[100%] md:w-[21%] h-[140px] md:h-[100%] bg-white rounded-[6px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]">
                     
-                    <div className='busqueda-libre min-w-[270px] md:min-w-[100%] h-[110px] '>
-                        <form onSubmit={(e)=>{handleSubmintSearch(e)}}>
-                            <label className='p-1 w-[100%] h-[30px] text-[17px] font-bold text-[#222274]'>Buscar referencia</label>
-                            <input id='input-search-referencia' className='w-[100%] h-[50px] bg-[#e6e6e6] rounded-[6px] font-bold text-[#6e6e6e] text-[17px]' type='text' placeholder=' Ej: sistema 744 traslape'/>
-                        </form>
-                    </div>
-
                     <div className='filtros ml-2 mr-2 md:ml-0 md:mr-0 min-w-[270px] md:min-w-[100%] h-[110px] '>
                         
                         <label className='p-1 w-[100%] h-[30px] text-[17px] font-bold text-[#222274]'>Elige un sistema</label>
@@ -333,6 +326,15 @@ const SectionCatalogoApp = ():JSX.Element=>{
                             }
                         </select>
                     </div>
+
+                    <div className='busqueda-libre min-w-[270px] md:min-w-[100%] h-[110px] '>
+                        <form onSubmit={(e)=>{handleSubmintSearch(e)}}>
+                            <label className='p-1 w-[100%] h-[30px] text-[17px] font-bold text-[#222274]'>Buscar referencia</label>
+                            <input id='input-search-referencia' className='w-[100%] h-[50px] bg-[#e6e6e6] rounded-[6px] font-bold text-[#6e6e6e] text-[17px]' type='text' placeholder=' Ej: sistema 744 traslape'/>
+                        </form>
+                    </div>
+
+
                 </div>
 
                 <div id='scrollable-div' className=" container-cards-catalogo mt-4 md:mt-0 flex flex-wrap justify-center items-center w-[100%] md:w-[78%] min-h-[300px] md:h-[100%] md:overflow-y-scroll overflw-x-hidden"> 
@@ -364,7 +366,9 @@ const SectionCatalogoApp = ():JSX.Element=>{
                                 ?
                                 referencias.map((ref:any, index:number)=>{
                                 
-                                    return<CardProduct key={index} referencia={ref}/>
+                                    if(ref.status === 'published'){
+                                        return<CardProduct key={index} referencia={ref} referencias={referencias}/>
+                                    }
 
                                 })
                                 :
@@ -399,7 +403,10 @@ const SectionCatalogoApp = ():JSX.Element=>{
                                 ?
                                 referencias.map((ref:any, index:number)=>{
                                 
-                                    return<CardProduct key={index} referencia={ref}/>
+                                    if(ref.status === 'published'){
+                                        return<CardProduct key={index} referencia={ref} referencias={referencias}/>
+                                    }
+                                    
 
                                 })
                                 :

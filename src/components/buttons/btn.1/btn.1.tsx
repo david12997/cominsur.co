@@ -1,6 +1,5 @@
 'use client'
 
-import { link } from "fs";
 import { useRouter } from "next/navigation";
 
 const Btn1 = (props:{bg:string,color:string,text:string,link?:string}): JSX.Element => {
