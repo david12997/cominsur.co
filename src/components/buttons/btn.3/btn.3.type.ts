@@ -7,4 +7,5 @@ export type Btn3Types= {
     text:string,
     width:string,
     height:string,
+    click?:()=>void
 }

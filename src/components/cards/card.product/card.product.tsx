@@ -40,6 +40,7 @@ const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
                 imgInit={media.img2}
                 nombreSystem={props.referencia.sistema_nombre}
                 reference={props.referencia}
+                typeModal="referencia"
 
             />
         }
@@ -53,6 +54,7 @@ const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
                     object-fit="cover"
                     className="rounded-[10px]"
                     sizes="100%"
+                    onClick={()=>setModalSystem(!modalSystem)}
                     
                 />
                 
@@ -66,21 +68,21 @@ const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
                     height={40}
                     width={40}
                     className="border-[4px] border-[#4a0083] rounded-[3px] ml-[5px] mr-[5px]"
+                    onClick={()=>handleChangeImg(media.img1,media.img2,1)}
                     
                 />
 
-                {/*
-                    <Image
-                        id={media.img2}
-                        src={media.img2}
-                        alt="Picture of the author"
-                        height={40}
-                        width={40}
-                        className="border-[4px] border-[#c9c9c9] rounded-[3px] ml-[5px] mr-[5px]"
-                        onClick={()=>handleChangeImg(media.img1,media.img2,2)}
-                    />
-                */
-                }
+
+                <Image
+                    id={media.img2}
+                    src={media.img2}
+                    alt="Picture of the author"
+                    height={40}
+                    width={40}
+                    className="border-[4px] border-[#c9c9c9] rounded-[3px] ml-[5px] mr-[5px]"
+                    onClick={()=>handleChangeImg(media.img1,media.img2,2)}
+                />
+
 
 
             </div>

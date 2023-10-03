@@ -2,15 +2,14 @@ export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 
 import BreadCrumb from "@/components/breadcrumb/breadcrumb";
-import SectionCotizar from "../../components/sections/cotizar/cotizar";
+import CotizarWrapper from "@/components/sections/cotizar/cotizar.wrapper";
 
 export default function  CotizarPage() {
     return(
         <main>
         
             <BreadCrumb/>
-            <SectionCotizar/>
-
+            <CotizarWrapper/>
            
 
         </main>

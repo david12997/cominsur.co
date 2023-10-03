@@ -14,6 +14,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                     if(index < 2) return<CardProduct
                         key={index}
                         referencia={referencia}
+                        referencias={props.referencias}
                        
                     />
                 })
@@ -25,6 +26,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                     if(index < 2) return<CardProduct
                         key={index}
                         referencia={referencia}
+                        referencias={props.referencias}
                        
                     />
                 })
@@ -36,6 +38,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                     if(index < 2) return<CardProduct
                         key={index}
                         referencia={referencia}
+                        referencias={props.referencias}
                        
                     />
                 })
@@ -47,6 +50,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                     if(index < 2) return<CardProduct
                         key={index}
                         referencia={referencia}
+                        referencias={props.referencias}
                        
                     />
                 })
@@ -58,6 +62,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                     if(index < 2) return<CardProduct
                         key={index}
                         referencia={referencia}
+                        referencias={props.referencias}
                        
                     />
                 })

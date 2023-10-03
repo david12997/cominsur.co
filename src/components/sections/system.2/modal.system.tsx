@@ -1,15 +1,23 @@
 'use client'
 
 import { CloseTimes } from "@/icons"
+import { useAppDispatch } from "@/store"
+import { setReferencias, setSistema, setState } from "@/store/cotizacion"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
-const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:any[],imgInit:string,nombreSystem:string,reference:any}):JSX.Element=>{
+const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:any[],imgInit:string,nombreSystem:string,reference:any,typeModal:string}):JSX.Element=>{
+
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
 
     const [imgRef, setImgRef] = useState(props.imgInit);
     const [totalPaquetes, setTotalPaquetes] = useState(0);
     const [myrefs, setMyrefs] = useState<any[]>(props.references);
-    const [currentRef,setCurrentRef] = useState<any>(props.reference)
+    const [currentRef,setCurrentRef] = useState<any>(props.reference);
+    const [typeModal,setTypeModal] = useState(props.typeModal);
 
     const inputRef = useRef<Array<HTMLInputElement | null>>([]);
 
@@ -81,15 +89,44 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
         }
     }
 
+    const handleSetSistema =(newTypeModal:string)=>{
+        setTypeModal(newTypeModal);
+        const elementsRef = document.querySelectorAll('.reference-option-list') as NodeListOf<HTMLElement>
+        const spans1 = document.querySelectorAll('.title-reference-option') as NodeListOf<HTMLElement>
+        const spans2 = document.querySelectorAll('.name-reference-option') as NodeListOf<HTMLElement>
+
+        for(let i=0; i< elementsRef.length; i++){
+            elementsRef[i].style.background = 'white'
+            elementsRef[i].style.color = '#6e6e6e'
+            spans1[i].style.color = '#4a0083'
+            spans2[i].style.color = '#6e6e6e'
+
+        
+        }
+
+    } 
+
     useEffect(() => {
+        
+        dispatch(setState('empty'));
+        dispatch(setSistema(""));
+        dispatch(setReferencias([]));
 
-        const filterReferences = myrefs.filter(ref => props.reference.id !== ref.id && ref);
-        const newReferences = [props.reference, ...filterReferences];
-        setMyrefs(newReferences);
-        setTimeout(()=>{
-            handleClickReferencia(props.reference,`referencia-${props.reference.id}-${props.reference.referencia}`,`title-${props.reference.id}`,`name-${props.reference.referencia}`)
+        if(typeModal === 'sistema'){
 
-        },300)
+        }
+
+        if(typeModal === 'referencia'){
+
+            const filterReferences = myrefs.filter(ref => props.reference.id !== ref.id && ref);
+            const newReferences = [props.reference, ...filterReferences];
+            setMyrefs(newReferences);
+            setTimeout(()=>{
+                handleClickReferencia(props.reference,`referencia-${props.reference.id}-${props.reference.referencia}`,`title-${props.reference.id}`,`name-${props.reference.referencia}`)
+    
+            },300)
+    
+        }
 
     }, [])
 
@@ -98,8 +135,8 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
 
             <div className="relative w-[90%] h-[90%] bg-white rounded-[8px] flex flex-wrap ">
 
-                <div className="close-scree-system w-[100%] h-[7%] relative flex items-center justify-center border-b-2 border-[#e6e6e6]"> 
-                    <h2 className="text-[20px] font-extrabold text-[#000032]">Sistema {props.nombreSystem}</h2>
+                <div onClick={()=>handleSetSistema('sistema')} className="close-scree-system w-[100%] h-[7%] relative flex items-center justify-center border-b-2 border-[#e6e6e6]"> 
+                    <h1  className="text-[22px] font-extrabold text-[#000032] cursor-pointer">SISTEMA {props.nombreSystem}</h1>
                     <span onClick={()=>props.setStateSystem(!props.stateSystem)} className="absolute right-0 p-2 cursor-pointer">
                         <CloseTimes
                             width="20"
@@ -108,18 +145,18 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                     </span>
                 </div>
 
-                <div className="relative container-animation-system w-[100%] h-[39%] md:w-[50%] md:h-[85%] border-b-2 md:border-b-0   md:border-r-2 border-[#e6e6e6]">
+                <div className="relative container-animation-system w-[100%] h-[39%] md:w-[50%] md:h-[93%] border-b-2 md:border-b-0   md:border-r-2 border-[#e6e6e6]">
                     <Image
-                        src={imgRef}
+                        src={ typeModal === 'referencia'? imgRef : props.reference.sistema_img }
                         alt="sistema-2"
                         fill
-                        className="object-cover w-[100%] h-[100%] cursor-pointer p-4"
+                        className="object-cover cursor-pointer p-3"
 
                     />
-                    <div className="title-ref-img text-[15px] p-2 font-extrabold text-[#4a0083] absolute top-[0px] left-[5px]">
+                    <div style={ typeModal === 'sistema' ? {display:'none'} : {display:'flex'}} className="title-ref-img text-[15px] p-2 font-extrabold text-[#4a0083] absolute top-[0px] left-[5px]">
                        Ref:  {currentRef.referencia} - {currentRef.sistema_nombre}
                     </div>
-                    <div className="container-thumb top-[83%] absolute w-[100%] h-[13%] border-bottom border-[#9b9b9b] flex items-center justify-center cursor-pointer">
+                    <div style={ typeModal === 'sistema' ? {display:'none'} : {display:'flex'}} className="container-thumb top-[83%] absolute w-[100%] h-[13%] border-bottom border-[#9b9b9b]  items-center justify-center cursor-pointer">
 
                         <Image
                             id={JSON.parse(currentRef.media).img2}
@@ -149,7 +186,11 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                 </div>
 
                 <div className=" container-animation-system w-[100%] h-[50%] md:w-[50%] md:h-[90%]  p-2 md:p-4 overflow-y-scroll mb-[400px]">
-                    <h1 className="cursor-pointer border-b-2 border-[#e6e6e6] w-[100%] h-[40px] flex items-center justify-center font-extrabold text-[19px] text-[#4a0083]">LISTADO REFERENCIAS</h1>
+                    <h1 onClick={()=>handleSetSistema('sistema')}
+                        className="cursor-pointer border-b-2 border-[#e6e6e6] w-[100%] h-[40px] flex items-center justify-center font-extrabold text-[19px] text-[#4a0083]"
+                    >
+                        LISTADO REFERENCIAS
+                    </h1>
                     {
                         myrefs.map((ref:any,index:number)=>{
 
@@ -159,6 +200,7 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                                     handleChangeImg(JSON.parse(currentRef.media).img1,JSON.parse(currentRef.media).img2,2)
                                     setCurrentRef(ref);
                                     handleClickReferencia(ref,`referencia-${ref.id}-${ref.referencia}`,`title-${ref.id}`,`name-${ref.referencia}`)
+                                    setTypeModal('referencia');
                                 }} 
                                 className="text-[#6e6e6e] text-[18px] reference-option-list pl-2 mt-2 mb-2 w-[100%] h-[160px] flex flex-wrap items-center border-b-2 boder-[#6e6e6e] cursor-pointer" 
                                 key={index}
@@ -186,7 +228,7 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                                             </form> 
                                         </div>
                                         <div className="w-[100%] font-extrabold  mt-1 mb-1">
-                                            Color: Mate / Negro
+                                            Color: {ref.color}
                                             
                                         </div>
                                     </div>
@@ -207,7 +249,31 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                             :
                             <div className="w-[100%] font-extrabold text-[#2a8a21] text-[21px]">Total paquetes: {totalPaquetes}</div>
                         }
-                        <button style={totalPaquetes !== 0 ? {background:"#4a0083",color:"white"}:{background:"#e6e6e6",color:"#6e6e6e"}} className=" w-[96%] h-[60px] rounded-[6px] mt-2 font-extrabold text-[20px]">
+                        <button onClick={()=>{
+
+                                if(totalPaquetes === 0) return alert('Agrega al menos 1 paquete para cotizar');
+
+                                dispatch(setState('cotizando'));
+                                dispatch(setSistema(props.nombreSystem));
+
+                                const refsCotizacion:any[] = [];
+                                (inputRef.current as HTMLInputElement[]).forEach((input:HTMLInputElement,index:number)=>{   
+                                    
+                                    if(input !== undefined && input !== null && input.value !== "0"){
+                                        refsCotizacion.push({
+                                            ...myrefs[index],
+                                            cantidad_paquetes:input.value
+                                        })
+                                    }
+    
+                                    
+                                })
+                                dispatch(setReferencias(refsCotizacion));
+                                router.push('/cotizar');
+                            }} 
+                            style={totalPaquetes !== 0 ? {background:"#4a0083",color:"white"}:{background:"#e6e6e6",color:"#6e6e6e"}} 
+                            className=" w-[96%] h-[60px] rounded-[6px] mt-2 font-extrabold text-[20px]"
+                        >
                             Solicitar cotización
                         </button>
                     </div>

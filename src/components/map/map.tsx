@@ -12,8 +12,8 @@ const Map = ():JSX.Element => {
     });
 
     const mapOptions = {
-        center: { lat: 4.659229243151415, lng: -74.06698963463579 },
-        zoom: 16,
+        center: { lat: 4.705423793558284, lng: -74.04058494455559 },
+        zoom: 12,
     }
 
     useEffect(()=>{
@@ -23,16 +23,28 @@ const Map = ():JSX.Element => {
         .then(({Map}) => {
           const map = new Map(document.getElementById("map") as HTMLElement, mapOptions);
 
-            const marker = new google.maps.Marker({
+            new google.maps.Marker({
                 position: { lat: 4.659229243151415, lng: -74.06698963463579 },
                 map: map,
                 title: 'Cominsur',
                 label: {
-                    text: 'Cominsur Mayorista de Aluminio',
+                    text: 'Sede 7 de Agosto',
                     className: 'text-[#222274] bg-white p-2 rounded-[50px] font-bold text-[18px] mt-[73px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]',
                 }
                 
             });
+
+            new google.maps.Marker({
+                position: { lat:4.7461350711128585, lng: -74.04027398465932 },
+                map: map,
+                title: 'Cominsur',
+                label: {
+                    text: 'Sede toberin',
+                    className: 'text-[#222274] bg-white p-2 rounded-[50px] font-bold text-[18px] mt-[73px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]',
+                }
+                
+            });
+
 
         })
         .catch((e) => {

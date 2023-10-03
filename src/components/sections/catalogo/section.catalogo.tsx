@@ -2,11 +2,14 @@
 
 import CardProduct from '@/components/cards/card.product/card.product';
 import { GetData } from '@/services/get.data';
+import { useAppSelector } from '@/store';
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 const SectionCatalogoApp = ():JSX.Element=>{
+
+    const selectorState = useAppSelector(state => state.cotizacion);
 
     const [typeFetchMore, setTypeFetchMore] = useState<string>('all');
     const [idCurrentSystem, setIdCurrentSystem] = useState<number>(0);

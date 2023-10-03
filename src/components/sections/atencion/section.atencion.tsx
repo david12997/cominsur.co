@@ -2,10 +2,72 @@
 
 import Btn3 from "@/components/buttons/btn.3/btn.3"
 import { Whatsapp } from "@/icons"
+import { SendMessage } from "@/services/send.message"
 import Image from "next/image"
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const SectionAtencionContacto = ():JSX.Element => {
+
+    const [message,setMessage]=useState<string>("Deja tu mensaje aquí");
+
+    const loaderRef = useRef<HTMLDivElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    const handleSendMessage = (e:any):void =>{
+        
+        e.preventDefault();
+
+        const form = e.target;
+        
+        //select inputs
+        const nombre = form.nombre;
+        const telefono = form.telefono;
+        const message = form.message;
+
+
+        if(nombre.value === '' || telefono.value === '' || message.value === ''){
+
+            setMessage('Todos los campos son obligatorios');
+            setTimeout(()=>setMessage('Deja tu mensaje aquí'),3000);
+        }else{
+
+            loaderRef.current?.classList.remove('hidden');
+            formRef.current?.classList.add('hidden');
+            setMessage('Enviando mensaje...');
+
+            SendMessage([
+                process.env.NEXT_PUBLIC_DOMAIN + '/api/email/message',
+                process.env.NEXT_PUBLIC_DOMAIN + '/api/notifications/message',
+
+            ],nombre.value,telefono.value,message.value)
+            .then(res=>{
+               
+                loaderRef.current?.classList.add('hidden');
+                formRef.current?.classList.remove('hidden');
+
+                if(res[0].status === 200){
+                    setMessage('Mensaje enviado con éxito');
+                    form.reset();
+
+                }else{
+                    setMessage('Error al enviar mensaje');
+                    form.reset();
+                }
+
+                setTimeout(()=>setMessage('Deja tu mensaje aquí'),3000);
+
+            }).catch(err=>{
+                console.log(err);
+                loaderRef.current?.classList.add('hidden');
+                formRef.current?.classList.remove('hidden');
+                setMessage('Error al enviar mensaje');
+                setTimeout(()=>setMessage('Deja tu mensaje aquí'),3000);
+            })
+        }
+
+
+
+    }
 
     useEffect(()=>{
 
@@ -44,7 +106,7 @@ const SectionAtencionContacto = ():JSX.Element => {
                 </p>
 
                 <div className="mt-3 md:mt-9 w-[100%] h-[50px] flex items-center justify-center text-[17px]  md:text-[19px] text-[#6e6e6e] font-bold">
-                    <Whatsapp/> <span className=" ml-3">320 914 3090 - 320 914 3093</span>
+                    <Whatsapp/> <span className=" ml-3">320 914 3090</span>
                 </div>
 
                 <div className="container-img w-[100%] md:flex hidden items-center justify-center md:mt-[30px]">
@@ -60,23 +122,23 @@ const SectionAtencionContacto = ():JSX.Element => {
             
             <div className="mt-[36px] md:mt-0 p-2 md:p-6 container-form-atencion w-[100%] h-[530px] md:w-[40%] md:h-[100%]  bg-white rounded-[8px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]">
                 <div className="title-form w-[100%] h-[40px] text-[20px] font-extrabold text-[#222274] flex items-center justify-center">
-                    Deja tu mensaje aquí
+                    {message}
                 </div>
-                <form onSubmit={(e)=>e.preventDefault()} className="w-[100%] mt-2 text-[18px] font-bold">
+                <form ref={formRef} onSubmit={(e)=>handleSendMessage(e)} className="w-[100%] mt-2 text-[18px] font-bold ">
                     <label className="w-[100%] text-[#6e6e6e] ">
                         Nombre:
                     </label>
-                    <input className="font-normal mb-4 w-[100%] h-[50px] rounded-[6px] bg-[#e6e6e6]" type="text" placeholder=" Ej: Juan Perez" />
+                    <input required name="nombre" className="font-normal mb-4 w-[100%] h-[50px] rounded-[6px] bg-[#e6e6e6]" type="text" placeholder=" Ej: Juan Perez" />
 
                     <label className="w-[100%] text-[#6e6e6e] ">
-                        Correo electrónico:
+                        Celular:
                     </label>
-                    <input className="font-normal mb-4 w-[100%] h-[50px] rounded-[6px] bg-[#e6e6e6]" type="text" placeholder=" Ej: juan@juan.com" />
+                    <input required name="telefono" className="font-normal mb-4 w-[100%] h-[50px] rounded-[6px] bg-[#e6e6e6]" type="tel" pattern="[0-9]{10}" placeholder=" Ej: 310 241 1111" />
 
                     <label className="w-[100%] text-[#6e6e6e] ">
                         Mensaje:
                     </label>
-                    <textarea className="mb-6 w-[100%] font-normal h-[120px] rounded-[6px] bg-[#e6e6e6]" placeholder=" Escribe tu mensaje aquí Ej: Quiero más información sobre los perfiles 744"></textarea>
+                    <textarea required name="message" className="mb-6 w-[100%] font-normal h-[120px] rounded-[6px] bg-[#e6e6e6]" placeholder=" Escribe tu mensaje aquí Ej: Quiero más información sobre los perfiles 744"></textarea>
 
                     <Btn3
                         text="ENVIAR MENSAJE"
@@ -90,6 +152,14 @@ const SectionAtencionContacto = ():JSX.Element => {
                     />
 
                 </form>
+
+                <div  ref={loaderRef} className="loader w-[100%] h-[100%] hidden">
+                    <div className="w-[100%] h-[100%] flex items-center justify-center">
+                        <div className="w-[200px] h-[200px] rounded-full animate-spin border-8 border-solid border-[#4a0083] border-t-transparent shadow-md">
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </section>

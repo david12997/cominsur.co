@@ -13,8 +13,8 @@ const SectionContacto = ():JSX.Element => {
         <div className="title-section font-bold  text-[22px]  md:text-[24px] w-[90vw] ml-[5vw]  mt-[45px]  md:mt-[60px] text-[#6a6a6a]">
            CONTACTO
         </div>
-        <section className="contacto mb-4 flex flex-wrap  p-2  md:p-4  h-[650px]  md:h-[430px] w-[90vw] ml-[5vw] bg-white rounded-[8px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]">
-            <div className="info-contacto w-[100%] h-[50%] md:w-[50%] md:h-[100%] ">
+        <section className="contacto mb-4 flex flex-wrap  p-2  md:p-4  h-[810px]  md:h-[500px] w-[90vw] ml-[5vw] bg-white rounded-[8px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]">
+            <div className="info-contacto w-[100%] h-[45%] md:w-[50%] md:h-[100%] ">
 
                 <div className="info-contacto flex items-center justify-start w-[100%] h-[60px] md:h-[80px]">
                     <Mail /> <span className="ml-2 text-[#6a6a6a] text-[19px] font-extrabold">ventas@cominsur.co</span>
@@ -29,10 +29,13 @@ const SectionContacto = ():JSX.Element => {
                     <Instagram/> <span className="ml-2 text-[#6a6a6a] text-[19px] font-extrabold">@cominsur.mayorista</span>
                 </div>
                 <div className="info-contacto flex items-center justify-start w-[100%] h-[60px] md:h-[80px]">
-                    <Location color="#6a6a6a"/><span className="ml-2 text-[#6a6a6a] text-[19px] font-extrabold">Cra 21 # 69 - 48 Bogotá</span>
+                    <Location color="#6a6a6a"/><span className="ml-2 text-[#6a6a6a] text-[19px] font-extrabold">Cra 21 # 69 - 48 </span>
+                </div>   
+                <div className="info-contacto flex items-center justify-start w-[100%] h-[60px] md:h-[80px]">
+                    <Location color="#6a6a6a"/><span className="ml-2 text-[#6a6a6a] text-[19px] font-extrabold">Calle 166 # 17 - 42</span>
                 </div>                
             </div>
-            <div className="mapa  w-[100%] h-[50%] md:w-[50%] md:h-[100%] rounded-[6px] shadow-sm shadow-[#e6e6e6]">
+            <div className="mapa  w-[100%] h-[55%] md:w-[50%] md:h-[100%] rounded-[6px] shadow-sm shadow-[#e6e6e6]">
                 <Map />
             </div>
         </section>

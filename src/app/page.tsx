@@ -5,6 +5,7 @@ import CarouselHome from "@/components/carousel/carousel"
 import SectionAbout from "@/components/sections/about/section.about"
 import SectionContacto from "@/components/sections/contacto/section.contacto"
 import SectionSystem2 from "@/components/sections/system.2/section.system.2"
+import SectionSystem2oWrapper from "@/components/sections/system.2/section.system.2.wrapper"
 import { GetData } from "@/services/get.data"
 
 export default async function HomePage():Promise<JSX.Element> {
@@ -58,7 +59,7 @@ export default async function HomePage():Promise<JSX.Element> {
           />
            */
           if(sistema.status === 'published' ){
-            return<SectionSystem2
+            return<SectionSystem2oWrapper
               key={index}
               id={sistema.id}
               nombre={sistema.nombre}

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://cominsur.co/'),
   title: 'Cominsur - Importadores mayoristas de perfilería en aluminio sistemas estructurales y arquitectónicos',
   description: 'Proveedor mayorista de perfilería en aluminio sistemas estructurales y arquitectónicos para la construcción, con más de 30 años de experiencia en el mercado colombiano.',
-  keywords:'aluminio, perfileria en aluminio, sistemas estructurales, sistemas arquitectonicos, sillar cabezal 3831, jamba proyectante 3831, silar 744, traslape 744, jamba cuerpo fijo 3825, enganche sencillo 3825, cabezal marco 7038, sillar marco 7038, enganche 5020, traslape 5020, sistemas de fachada, sistemas de ventaneria, sistemas de puertas, sistemas de divisiones, sistemas de barandas, sistemas de pasamanos, sistemas de cielo raso, sistemas de cubiertas, sistemas de fachadas flotantes, sistemas de fachadas estructurales, sistemas de fachadas semi estructurales, sistemas de fachadas',
+  keywords:'Cominsur, cominsur, cominsur.co, cominsur.com, cominsur.com.co, venta de perfilería en aluminio,aluminio, perfileria en aluminio,ventanas y puertas proyectantes y corredizas, sistemas estructurales, sistemas arquitectonicos, sillar cabezal 3831, jamba proyectante 3831, silar 744, traslape 744, jamba cuerpo fijo 3825, enganche sencillo 3825, cabezal marco 7038, sillar marco 7038, enganche 5020, traslape 5020, sistemas de fachada, sistemas de ventaneria, sistemas de puertas, sistemas de divisiones, sistemas de barandas, sistemas de pasamanos, sistemas de cielo raso, sistemas de cubiertas, sistemas de fachadas flotantes, sistemas de fachadas estructurales, sistemas de fachadas semi estructurales, sistemas de fachadas',
   openGraph:{
     type: 'website',
     locale: 'es_CO',
@@ -46,6 +46,12 @@ export const metadata: Metadata = {
     shortcut: ['/apple-touch-icon.png'],
   },
   manifest: '/site.webmanifest',
+  robots:"index, follow",
+  authors:{
+    name: 'Cominsur',
+    url: 'https://cominsur.co',
+  }
+  
 }
 
 export default function RootLayout({

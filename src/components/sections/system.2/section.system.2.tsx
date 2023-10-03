@@ -6,11 +6,15 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import ModalSystem from "./modal.system"
 import { GetData } from "@/services/get.data"
+import {  useAppSelector } from "@/store"
 
 const SectionSystem2 = (props:{id:number,nombre:string,imgSystem:string,text1:string,text2:string}):JSX.Element => {
 
     const [stateSystem, setStateSystem] = useState(false);
-    const [references, setReferences] = useState([])
+    const [references, setReferences] = useState([]);
+
+    const selectorCotizacion = useAppSelector(state => state.cotizacion);
+  
 
     useEffect(() => {
 
@@ -41,20 +45,21 @@ const SectionSystem2 = (props:{id:number,nombre:string,imgSystem:string,text1:st
                 imgInit={props.imgSystem}
                 nombreSystem={props.nombre}
                 reference={references[0]}
+                typeModal="sistema"
             />
         }
         <div className="title-section font-bold  text-[22px]  md:text-[24px] w-[90vw] ml-[5vw]  mt-[45px]  md:mt-[60px] text-[#6a6a6a]">
            SISTEMA {props.nombre} <Link href={'/catalogo'} className="cursor-pointer font-extrabold text-[14px]  md:text-[16px] text-[#222274]">Ver referencias</Link>
         </div>
-        <section className="about mb-4 flex flex-wrap  p-2  md:p-6  h-[700px]  md:h-[426px] 2xl:h-[650px]  w-[90vw] ml-[5vw] bg-white rounded-[8px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]">
+        <section className="about mb-4 flex flex-wrap  p-2  md:p-6  h-[700px]  md:h-[490px] 2xl:h-[660px]  w-[90vw] ml-[5vw] bg-white rounded-[8px] shadow-[0px_0px_6px_rgba(0,0,0,0.2)]">
 
-            <div className="relative flex items-center justify-center  container-img-sistema w-[100%] md:w-[50%] h-[330px]  md:h-[370px] 2xl:h-[430px]">
+            <div className="relative flex items-center justify-center  container-img-sistema w-[100%] md:w-[50%] h-[360px]  md:h-[460px] 2xl:h-[550px]">
 
                 <Image
                     src={props.imgSystem}
                     alt={`sistema de perfileria en aluminio ${props.nombre}`}
                     fill
-                    className="object-cover w-[100%] h-[100%] cursor-pointer p-4"
+                    className="object-cover cursor-pointer p-4"
                     onClick={() => setStateSystem(!stateSystem)}
 
                 />
