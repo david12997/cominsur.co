@@ -79,3 +79,13 @@ export const CloseTimes = (props:{width:string,color:string}): JSX.Element => {
 
     </>
 }
+
+export const ArrowUp = (props:{width:string,height:string,color:string}): JSX.Element => {
+
+    return<>
+        <svg width={props.width} height={props.height} viewBox="0 0 321 207" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M177.05 7.03755L313.05 143.038C322.45 152.438 322.45 167.638 313.05 176.938L290.45 199.538C281.05 208.938 265.85 208.938 256.55 199.538L160.05 103.238L63.65 199.638C54.25 209.038 39.05 209.038 29.75 199.638L7.05 177.038C-2.35 167.638 -2.35 152.438 7.05 143.138L143.05 7.13755C152.45 -2.36245 167.65 -2.36245 177.05 7.03755Z" fill={props.color}/>
+        </svg>
+
+    </>
+}

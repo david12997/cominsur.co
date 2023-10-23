@@ -19,7 +19,7 @@ const SectionNosotros = (props:{data:any,orientation:string}):JSX.Element => {
                 />
             </div>
             <div className="text-nosotros w-[100%] md:w-[50%]  h-[70%] md:h-[96%]">
-                <p className="text-[17px] md:text-[20px] text-[#6e6e6e] font-bold">
+                <p className="text-[17px] md:text-[19px] text-[#6e6e6e] font-normal md:pl-2">
                     {props.data.text}
                 </p>
             </div>

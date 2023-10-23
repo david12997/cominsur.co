@@ -38,7 +38,7 @@ const CarouselHome = (props:{bannersDesktop:string[],bannersMobile:string[]}) =>
                 {
                     props.bannersDesktop.map((banner:string,index:number)=>{
                         return<div key={index} onClick={()=>handleClickCarousel(index)}>
-                            <img src={banner} alt="Banner cominsur mayotista de perfileria en aluminio" />
+                            <img src={banner} alt="Cominsur Banner cominsur mayotista de perfileria en aluminio" />
                         </div>
                     })
                 }
@@ -50,7 +50,7 @@ const CarouselHome = (props:{bannersDesktop:string[],bannersMobile:string[]}) =>
                 {
                     props.bannersMobile.map((banner:string,index:number)=>{
                         return<div key={index} onClick={()=>handleClickCarousel(index)}>
-                            <img src={banner} alt="Banner cominsur mayotista de perfileria en aluminio"/>
+                            <img src={banner} alt="Cominsur Banner cominsur mayotista de perfileria en aluminio"/>
                         </div>
                     })
                 }

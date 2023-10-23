@@ -15,6 +15,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                         key={index}
                         referencia={referencia}
                         referencias={props.referencias}
+                        busqueda={false}
                        
                     />
                 })
@@ -27,6 +28,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                         key={index}
                         referencia={referencia}
                         referencias={props.referencias}
+                        busqueda={false}
                        
                     />
                 })
@@ -39,6 +41,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                         key={index}
                         referencia={referencia}
                         referencias={props.referencias}
+                        busqueda={false}
                        
                     />
                 })
@@ -51,6 +54,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                         key={index}
                         referencia={referencia}
                         referencias={props.referencias}
+                        busqueda={false}
                        
                     />
                 })
@@ -63,6 +67,7 @@ const SectionProducts = (props:{referencias:any[]}):JSX.Element => {
                         key={index}
                         referencia={referencia}
                         referencias={props.referencias}
+                        busqueda={false}
                        
                     />
                 })

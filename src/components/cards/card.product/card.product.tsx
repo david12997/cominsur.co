@@ -5,10 +5,10 @@ import Image from "next/image"
 import Btn2 from "@/components/buttons/btn.2/btn.2";
 import ModalSystem from "@/components/sections/system.2/modal.system";
 
-const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
+const CardProduct = (props:{referencia:any,referencias:any[],busqueda:boolean}):JSX.Element=>{
 
     const media = JSON.parse(props.referencia.media);
-    const [imgActive, setImgActive] = useState<string>(media.img1);
+    const [imgActive, setImgActive] = useState<string>(media.img2);
     const [modalSystem, setModalSystem] = useState<boolean>(false);
 
     const handleChangeImg = (urlImg1:string,urlImg2:string,index:number):void=>{
@@ -41,6 +41,7 @@ const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
                 nombreSystem={props.referencia.sistema_nombre}
                 reference={props.referencia}
                 typeModal="referencia"
+                busqueda={props.busqueda}
 
             />
         }
@@ -49,7 +50,7 @@ const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
             <div className="container-img w-[100%] h-[47%] relative">
                 <Image
                     src={imgActive}
-                    alt="Picture of the author"
+                    alt={`Cominsur referencia: ${props.referencia.referencia} - ${props.referencia.nombre} sistema: ${props.referencia.sistema_nombre}`}
                     fill={true}
                     object-fit="cover"
                     className="rounded-[10px]"
@@ -62,25 +63,25 @@ const CardProduct = (props:{referencia:any,referencias:any[]}):JSX.Element=>{
             <div className="container-thumb w-[100%] h-[13%] border-bottom border-[#9b9b9b] flex items-center justify-center cursor-pointer">
 
                 <Image
-                    id={media.img1}
-                    src={media.img1}
-                    alt="Picture of the author"
+                    id={media.img2}
+                    src={media.img2}
+                    alt={`Cominsur referencia: ${props.referencia.referencia} - ${props.referencia.nombre} sistema: ${props.referencia.sistema_nombre}`}
                     height={40}
                     width={40}
                     className="border-[4px] border-[#4a0083] rounded-[3px] ml-[5px] mr-[5px]"
-                    onClick={()=>handleChangeImg(media.img1,media.img2,1)}
+                    onClick={()=>handleChangeImg(media.img2,media.img1,1)}
                     
                 />
 
 
                 <Image
-                    id={media.img2}
-                    src={media.img2}
-                    alt="Picture of the author"
+                    id={media.img1}
+                    src={media.img1}
+                    alt={`Cominsur Perfil ${props.referencia.nombre} sistema: ${props.referencia.sistema_nombre}`}
                     height={40}
                     width={40}
                     className="border-[4px] border-[#c9c9c9] rounded-[3px] ml-[5px] mr-[5px]"
-                    onClick={()=>handleChangeImg(media.img1,media.img2,2)}
+                    onClick={()=>handleChangeImg(media.img2,media.img1,2)}
                 />
 
 

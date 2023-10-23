@@ -100,13 +100,13 @@ const SectionAtencionContacto = ():JSX.Element => {
                         height={130}
                     />
                 </div>
-                <p className="text-[19px] text-[#6e6e6e] font-bold">
+                <p className="text-[19px] text-[#6e6e6e] font-normal">
                     ¿Necesitas <span className="text-[#4a0083]">atención personalizada</span>?  Si deseas realizar una cotización o necesitas mas información
                      de alguno de nuestros productos, déjanos un mensaje, en breve uno de nuestros asesores se comunicara contigo
                 </p>
 
                 <div className="mt-3 md:mt-9 w-[100%] h-[50px] flex items-center justify-center text-[17px]  md:text-[19px] text-[#6e6e6e] font-bold">
-                    <Whatsapp/> <span className=" ml-3">320 914 3090</span>
+                    <Whatsapp/> <span className=" ml-3">320 914 3090 - 311 276 4163</span>
                 </div>
 
                 <div className="container-img w-[100%] md:flex hidden items-center justify-center md:mt-[30px]">

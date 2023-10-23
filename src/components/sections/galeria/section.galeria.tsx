@@ -47,8 +47,9 @@ const SectionGaleria = (props:{img:string[],video:string[]}):JSX.Element => {
             {
                 props.video.map((video:string,index:number)=>{
 
-                    return<video key={index} src={video} className="w-[100%] md:w-[300px] m-1" controls>
-                        </video>
+                    return<video key={index} className="w-[100%] md:w-[300px] m-1" controls>
+                        <source src={video} type="video/mp4"/>
+                    </video>
                 })
             }
         </section>

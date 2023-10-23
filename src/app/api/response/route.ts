@@ -9,8 +9,7 @@ export async function POST(req: Request, res: Response) {
         <Response>
             <Message>
                 <Body>
-                    Sistema de cotizaciones COMINSUR 
-                Escribe "1" para relacionar el sistema con este número de WhatsApp
+                    Sistema de cotizaciones activado con éxito, por favor no responda este mensaje.
                 </Body>
             </Message>
         </Response>

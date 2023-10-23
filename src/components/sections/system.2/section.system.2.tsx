@@ -46,6 +46,7 @@ const SectionSystem2 = (props:{id:number,nombre:string,imgSystem:string,text1:st
                 nombreSystem={props.nombre}
                 reference={references[0]}
                 typeModal="sistema"
+                busqueda={false}
             />
         }
         <div className="title-section font-bold  text-[22px]  md:text-[24px] w-[90vw] ml-[5vw]  mt-[45px]  md:mt-[60px] text-[#6a6a6a]">
@@ -71,11 +72,11 @@ const SectionSystem2 = (props:{id:number,nombre:string,imgSystem:string,text1:st
                     Sistema {props.nombre}
                 </h1>
                
-               <h6 className=" font-bold text-[#6e6e6e] text-[18px]">
+               <h6 className=" font-normal text-[#6e6e6e] text-[18px]">
                    {props.text1}
                 </h6>
                 <br/>
-                <h6 className="font-bold text-[#6e6e6e] text-[18px]">
+                <h6 className="font-normal text-[#6e6e6e] text-[18px]">
                    {props.text2}
                 </h6>
 

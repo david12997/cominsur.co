@@ -12,7 +12,7 @@ const SectionAbout = (props:SectionAbout):JSX.Element => {
             <div className="logo  w-[100%]  md:w-[30%] md:h-[100%] h-[230px] flex items-center justify-center">
                 <Image
                     src={props.logo.src}
-                    alt={props.logo.alt}
+                    alt={"Cominsur Perfilaría en Aluminio "+props.logo.alt}
                     height={196}
                     width={205}
 
@@ -22,13 +22,13 @@ const SectionAbout = (props:SectionAbout):JSX.Element => {
             <div className="info-about  w-[100%]  md:w-[70%]">
 
                 <div className="text-about-cominsur md:p-4">
-                    <p className="text-[#6a6a6a] font-bold text-[18px] md:text-[20px] leading-8  md:leading-10">
+                    <h1 className="text-[#6a6a6a] font-bold text-[18px] md:text-[20px] leading-8  md:leading-10">
                         {props.texts.text1} 
                         <span className="bg-[#ffca08] p-1 text-[#222274]">{props.texts.text2}</span>
                         {props.texts.text3}
                         <span className="bg-[#ffca08] p-1 text-[#222274]">{props.texts.text4}</span>
                         {props.texts.text5}
-                    </p>
+                    </h1>
                     <p  className="text-[#6a6a6a] font-bold text-[18px]  md:text-[20px]  leading-8  md:leading-10 mt-2 md:mt-6">
                        {props.texts.text6} <span className="text-[#222274]">{props.texts.text7}</span>
                     </p>

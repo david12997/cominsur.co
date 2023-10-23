@@ -1,15 +1,18 @@
 'use client'
 
 import CardProduct from '@/components/cards/card.product/card.product';
+import { ArrowUp } from '@/icons';
 import { GetData } from '@/services/get.data';
 import { useAppSelector } from '@/store';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 const SectionCatalogoApp = ():JSX.Element=>{
 
     const selectorState = useAppSelector(state => state.cotizacion);
+
+    const [busqueda, setBusqueda] = useState<boolean>(false);
 
     const [typeFetchMore, setTypeFetchMore] = useState<string>('all');
     const [idCurrentSystem, setIdCurrentSystem] = useState<number>(0);
@@ -28,6 +31,8 @@ const SectionCatalogoApp = ():JSX.Element=>{
 
     const [referenciasSistema, setReferenciasSistema] = useState<any[]>([]);
     const [stateReferenciasSistema, setStateReferenciasSistema] = useState<string>('loading');
+
+    const btnUpRef = useRef<HTMLButtonElement>(null);
 
     const verifyResponse = (res:any,setEntity:any,setStateEntity:any,index:number):void=>{
 
@@ -54,6 +59,7 @@ const SectionCatalogoApp = ():JSX.Element=>{
 
         setNeedMoreReferences(false);
         setStateOffset(0);
+        setBusqueda(false);
         
         if(e.target.value !== 'none' && e.target.value !== 'cargando' && e.target.value !== 'error'){
             
@@ -98,21 +104,22 @@ const SectionCatalogoApp = ():JSX.Element=>{
             setTitle('VER TODO');
             setStateReferenciasSistema('loading');
             setReferenciasSistema([]);
-            setReferencias([]);
             setStateReferencias('loading');
             setNeedMoreReferences(true);
             setResetAll(!resetAll);
+            setStateOffset(0);
+
         }
 
     }
 
     const handleSelectReferencia = (e:any):void=>{
 
-
         if(e.target.value !== 'none' && e.target.value !== 'cargando' && e.target.value !== 'error'){
             // reset referencias 
             setStateReferencias('loading');
             setReferencias([]);
+            setBusqueda(false);
 
             // reset title
             let selectReferencias = document.getElementById('select-referencia') as HTMLSelectElement;
@@ -154,6 +161,7 @@ const SectionCatalogoApp = ():JSX.Element=>{
     const handleSubmintSearch = (e:any):void=>{
 
         e.preventDefault();
+        setBusqueda(!busqueda);
         let input = document.getElementById('input-search-referencia') as HTMLInputElement;
 
         if(input.value !== '' && input.value !== ' ' && input.value !== null && input.value !== undefined && input.value.length >= 3){
@@ -174,7 +182,7 @@ const SectionCatalogoApp = ():JSX.Element=>{
 
                 //clean input
                 input.value = '';
-               
+
 
             }).catch((err:any)=>{
                 console.log(err)
@@ -237,6 +245,9 @@ const SectionCatalogoApp = ():JSX.Element=>{
 
         setStateOffset(0);
         setNeedMoreReferences(true);
+        setReferenciasSistema([]);
+        setReferencias([]);
+        setBusqueda(false);
 
         GetData([
 
@@ -244,6 +255,7 @@ const SectionCatalogoApp = ():JSX.Element=>{
             process.env.NEXT_PUBLIC_DOMAIN as string + '/api/sistemas/all',
 
         ]).then((res:any)=>{
+            
 
             // verify response referencias
             verifyResponse(res,setReferencias,setStateReferencias,0);
@@ -274,6 +286,28 @@ const SectionCatalogoApp = ():JSX.Element=>{
             }
         }
 
+        //btn arrow up
+        window.addEventListener('scroll',()=>{
+
+            if(window.scrollY > 400 && btnUpRef.current !== null){
+                btnUpRef.current.style.display = 'flex';
+
+            }else{
+                btnUpRef.current !== null &&
+                (btnUpRef.current.style.display = 'none');
+            }
+        })
+
+        if(btnUpRef.current !== null){
+
+            btnUpRef.current.addEventListener('click',()=>{
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                })
+            })
+        }
 
     }, [resetAll])
     
@@ -370,7 +404,7 @@ const SectionCatalogoApp = ():JSX.Element=>{
                                 referencias.map((ref:any, index:number)=>{
                                 
                                     if(ref.status === 'published'){
-                                        return<CardProduct key={index} referencia={ref} referencias={referencias}/>
+                                        return<CardProduct busqueda={busqueda} key={index} referencia={ref} referencias={referencias}/>
                                     }
 
                                 })
@@ -407,7 +441,7 @@ const SectionCatalogoApp = ():JSX.Element=>{
                                 referencias.map((ref:any, index:number)=>{
                                 
                                     if(ref.status === 'published'){
-                                        return<CardProduct key={index} referencia={ref} referencias={referencias}/>
+                                        return<CardProduct busqueda={busqueda} key={index} referencia={ref} referencias={referencias}/>
                                     }
                                     
 
@@ -431,6 +465,13 @@ const SectionCatalogoApp = ():JSX.Element=>{
             </div>
 
         </section>
+        <button style={{display:'none'}} ref={btnUpRef} className='p-2 rounded-[6px] fixed bottom-[20px] right-[20px] z-[99] bg-[#000032] text-white md:hidden'>
+            <ArrowUp
+                width='80'
+                height='20'
+                color='#fff'
+            />
+        </button>
     </>
 }
 

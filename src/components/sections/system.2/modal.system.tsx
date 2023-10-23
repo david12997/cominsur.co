@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
-const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:any[],imgInit:string,nombreSystem:string,reference:any,typeModal:string}):JSX.Element=>{
+const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:any[],imgInit:string,nombreSystem:string,reference:any,typeModal:string,busqueda:boolean}):JSX.Element=>{
 
     const dispatch = useAppDispatch();
     const router = useRouter();
@@ -19,7 +19,16 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
     const [currentRef,setCurrentRef] = useState<any>(props.reference);
     const [typeModal,setTypeModal] = useState(props.typeModal);
 
-    const inputRef = useRef<Array<HTMLInputElement | null>>([]);
+    const selectRef = useRef<Array<HTMLSelectElement | null>>([]);
+
+    const quantityPaquetesAllowed  = ():number[]=>{
+
+        const arr:any[] = [];
+        for(let i=0; i< 61; i++){
+            arr.push(i);
+        }
+        return arr;
+    }
 
     const handleClickReferencia = (referencia:any,idRef:string,idSpan1:string,idspan2:string)=>{
 
@@ -54,19 +63,14 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
         
     }
 
-    const handleChangeInput = ()=>{
+    const handleChangeSelect = ()=>{
 
         let total:number = 0;
 
-        for(let i=0; i< inputRef.current.length; i++){
+        for(let i=0; i< selectRef.current.length; i++){
 
-            const value = inputRef.current[i] as HTMLInputElement;
+            const value = selectRef.current[i] as HTMLSelectElement;
             if(value !== undefined && value !== null){
-                
-                if(value.value === '') value.value = '0';
-                if(value.value ==='-') value.value = '0';
-                if(parseInt(value.value) < 0) value.value = '0';
-                if(parseInt(value.value) > 60) value.value = '60';
 
                 total += parseInt(value.value);
             }
@@ -90,19 +94,23 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
     }
 
     const handleSetSistema =(newTypeModal:string)=>{
-        setTypeModal(newTypeModal);
-        const elementsRef = document.querySelectorAll('.reference-option-list') as NodeListOf<HTMLElement>
-        const spans1 = document.querySelectorAll('.title-reference-option') as NodeListOf<HTMLElement>
-        const spans2 = document.querySelectorAll('.name-reference-option') as NodeListOf<HTMLElement>
 
-        for(let i=0; i< elementsRef.length; i++){
-            elementsRef[i].style.background = 'white'
-            elementsRef[i].style.color = '#6e6e6e'
-            spans1[i].style.color = '#4a0083'
-            spans2[i].style.color = '#6e6e6e'
-
-        
+        if(!props.busqueda){
+            setTypeModal(newTypeModal);
+            const elementsRef = document.querySelectorAll('.reference-option-list') as NodeListOf<HTMLElement>
+            const spans1 = document.querySelectorAll('.title-reference-option') as NodeListOf<HTMLElement>
+            const spans2 = document.querySelectorAll('.name-reference-option') as NodeListOf<HTMLElement>
+    
+            for(let i=0; i< elementsRef.length; i++){
+                elementsRef[i].style.background = 'white'
+                elementsRef[i].style.color = '#6e6e6e'
+                spans1[i].style.color = '#4a0083'
+                spans2[i].style.color = '#6e6e6e'
+    
+            
+            }
         }
+
 
     } 
 
@@ -136,7 +144,7 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
             <div className="relative w-[90%] h-[90%] bg-white rounded-[8px] flex flex-wrap ">
 
                 <div onClick={()=>handleSetSistema('sistema')} className="close-scree-system w-[100%] h-[7%] relative flex items-center justify-center border-b-2 border-[#e6e6e6]"> 
-                    <h1  className="text-[22px] font-extrabold text-[#000032] cursor-pointer">SISTEMA {props.nombreSystem}</h1>
+                    <h1  className="text-[22px] font-extrabold text-[#000032] cursor-pointer"> {!props.busqueda ? 'SISTEMA '+props.nombreSystem : 'BUSQUEDA LIBRE'}</h1>
                     <span onClick={()=>props.setStateSystem(!props.stateSystem)} className="absolute right-0 p-2 cursor-pointer">
                         <CloseTimes
                             width="20"
@@ -217,14 +225,18 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                                         <div className="w-[100%] font-extrabold mt-1 mb-1 flex">
                                             Cantidad de paquetes: 
                                             <form onSubmit={(e)=>e.preventDefault()}>
-                                                <input  ref={el => inputRef.current[index] = el}  
-                                                    onChange={()=>handleChangeInput()}  
-                                                    min={0} 
-                                                    max={60} 
-                                                    defaultValue={0} 
-                                                    type="number" 
-                                                    className="rounded-[6px] ml-2 pl-4 bg-[#e6e6e6] text-black w-[54px] h-[27px]"
-                                                />
+                                                <select ref={elem=>selectRef.current[index] = elem} 
+                                                    onChange={()=>handleChangeSelect()} 
+                                                    className="rounded-[6px] ml-2 pl-4 bg-[#e6e6e6] text-black w-[63px] h-[27px]"
+                                                >
+                                                    {
+                                                        quantityPaquetesAllowed().map((quantity,index)=>(
+                                                            <option key={index} value={quantity}>{quantity}</option>
+                                                        ))
+                                                    }
+                                                   
+                                                </select>
+                  
                                             </form> 
                                         </div>
                                         <div className="w-[100%] font-extrabold  mt-1 mb-1">
@@ -257,12 +269,12 @@ const ModalSystem = (props:{setStateSystem:any,stateSystem:boolean,references:an
                                 dispatch(setSistema(props.nombreSystem));
 
                                 const refsCotizacion:any[] = [];
-                                (inputRef.current as HTMLInputElement[]).forEach((input:HTMLInputElement,index:number)=>{   
+                                (selectRef.current as HTMLSelectElement[]).forEach((select:HTMLSelectElement,index:number)=>{   
                                     
-                                    if(input !== undefined && input !== null && input.value !== "0"){
+                                    if(select !== undefined && select !== null && select.value !== "0"){
                                         refsCotizacion.push({
                                             ...myrefs[index],
-                                            cantidad_paquetes:input.value
+                                            cantidad_paquetes:select.value
                                         })
                                     }
     

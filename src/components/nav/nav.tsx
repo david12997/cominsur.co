@@ -15,7 +15,7 @@ const Nav = ():JSX.Element=>{
                     <Link href={'/'}>
                         <Image
                             src={'https://cms.cominsur.co/cominsur/assets/g7y7rumo0i88skg4'}
-                            alt="Cominsur logo"
+                            alt="Cominsur perfilería en aluminio"
                             height={35}
                             width={192}
                             priority={true}
