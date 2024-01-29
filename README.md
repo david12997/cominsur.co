@@ -1,34 +1,117 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cominsur website 
 
-## Getting Started
+## Live Project: [www.cominsur.co](https://www.cominsur.co)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+https://github.com/david12997/cominsur.co/assets/51899338/6af22cb2-4632-4123-8bd9-97c17f4a096c
+
+
+#### Corporative website using next.js tailwind and docker, i have designed, build and deploy this project, this is just a webapp of an private corporative system that i have contributed to build
+
+# Table of content
+
+- [Architecture](#Architecture)
+- [UI Design](#UI-design)
+- [Frontend](#Frontend)
+- [Backend API](#Backend-API)
+
+
+## Architecture
+
+Overview of high level components website system
+<img src="https://cms.cominsur.co/cominsur/assets/rrcu4yzmcogokokw" />
+<br></br>
+
+### Use case diagram
+<img src="https://cms.cominsur.co/cominsur/assets/ox41x5u7d8gwoggo"/>
+<br></br>
+
+## UI design
+To design and prototype a solution i used figma 
+**You can follow the design process here [Figma design project](https://www.figma.com/file/nqoCWXr6UxIxvKfqtyC7mI/Untitled?type=design&node-id=0%3A1&mode=design&t=fOXfcvKDglShlKnt-1)**
+<img src="https://cms.cominsur.co/cominsur/assets/rg7qvwt5jeo0o48o"/>
+
+
+<br></br>
+
+## Frontend
+
+This project use next js to have access to server site rendering, static site generation and client side generation strategies, i have decide to use next js framework thinking about the importance of SEO to this project
+
+To handle the global state and persist information this project use redux and reduxtoolkit
+
+<br></br>
+
+## Backend API
+
+This project expose a simple API to solve the main requirements
+
+<br></br>
+#### Get data aluminum profile system
+```http
+  GET /api/sistemas?id=1
+```
+| Query parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `string/number`  | unique identifier to system. required
+
+
+<br></br>
+#### Get data of all systems available 
+```http
+  GET /api/sistemas/all
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br></br>
+#### Get all references available without any specifi order
+```http
+  GET /api/referencias/all?limit=20&offset=0
+```
+| Query parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `limit` | `number`  | specific quantity of resources you want to obtain
+| `offset` | `number`  | how many resources you want to skip before yo start to retriving the resources
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br></br>
+#### Get specific aluminum profile reference by id reference
+```http
+  GET /api/referencias/id?idRef=1
+```
+| Query parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `idRef` | `string/number`  | unique identifier to specific aluminum profile. required
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+<br></br>
+#### Get profile  references by specific aluminum system
+```http
+  GET /api/referencias?system=1&limit=9&offset=0
+```
+| Query parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `system` | `string/number`  | unique identifier to specific aluminum system. required
+| `limit` | `number`  | specific quantity of resources you want to obtain
+| `offset` | `number`  | how many resources you want to skip before yo start to retriving the 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<br></br>
+#### Search references by patterns 
+```http
+  GET /api/referencias/search?search=traslape&limit=9&offset=0
+```
+| Query parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `search` | `string`  | pattern reference to search coincidences. required
+| `limit` | `number`  | specific quantity of resources you want to obtain
+| `offset` | `number`  | how many resources you want to skip before yo start to retriving the 
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br></br>
+#### Get data required for views pages
+```http
+  GET /api/pages?page=index
+```
+| Query parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `page` | `string`  | speciic name of each view available 

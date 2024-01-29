@@ -2,7 +2,6 @@ export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 
 import { NextResponse } from 'next/server';
-import { DB } from '@/db/config';
 import twilio from 'twilio';
 
 export async function POST(req: Request, res: Response) {
