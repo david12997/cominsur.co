@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cominsur website 
 
-## Getting Started
+## Live Project: [www.cominsur.co](https://www.cominsur.co)
 
-First, run the development server:
+#### Corporative website using next.js tailwind and docker, i have designed, build and deploy this project, this is just a webapp of an private corporative system that i have contributed to build
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# Table of content
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Architecture](#Architecture)
+- [UI Design](#UI-design)
+- [Frontend](#Frontend)
+- [Backend API](#Backend-API)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Architecture
 
-## Learn More
+Overview of high level components website system
+<img src="https://cms.cominsur.co/cominsur/assets/rrcu4yzmcogokokw" />
+<br></br>
 
-To learn more about Next.js, take a look at the following resources:
+**Use case diagram**
+<img src="https://cms.cominsur.co/cominsur/assets/ox41x5u7d8gwoggo"/>
+<br></br>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## UI design
+To design and prototype a solution i used figma 
+**You can follow the design process here [Figma design project](https://www.figma.com/file/nqoCWXr6UxIxvKfqtyC7mI/Untitled?type=design&node-id=0%3A1&mode=design&t=fOXfcvKDglShlKnt-1)**
+<img src="https://cms.cominsur.co/cominsur/assets/rg7qvwt5jeo0o48o"/>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+<br></br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Subsección 1.2
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contenido de la Subsección 1.2.
+
+<br></br>
+
+## Sección 2
+
+Contenido de la Sección 2.
+
+<br></br>
+
+### Subsección 2.1
+
+Contenido de la Subsección 2.1.
+
+### Subsección 2.2
+
+Contenido de la Subsección 2.2.
+
+## Sección 3
+
+Contenido de la Sección 3.
