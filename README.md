@@ -1,6 +1,6 @@
 # Cominsur website 
 
-## Live Project: [www.cominsur.co](https://www.cominsur.co)
+## Live Project: [www.cominsur.co](https://www.cominsur.com.co)
 
 
 https://github.com/david12997/cominsur.co/assets/51899338/6af22cb2-4632-4123-8bd9-97c17f4a096c
@@ -19,11 +19,11 @@ https://github.com/david12997/cominsur.co/assets/51899338/6af22cb2-4632-4123-8bd
 ## Architecture
 
 Overview of high level components website system
-<img src="https://cms.cominsur.co/cominsur/assets/rrcu4yzmcogokokw" />
+<img src="https://cms.cominsur.com.co/cominsur/assets/rrcu4yzmcogokokw" />
 <br></br>
 
 ### Use case diagram
-<img src="https://cms.cominsur.co/cominsur/assets/ox41x5u7d8gwoggo"/>
+<img src="https://cms.cominsur.com.co/cominsur/assets/ox41x5u7d8gwoggo"/>
 <br></br>
 
 ## UI design
