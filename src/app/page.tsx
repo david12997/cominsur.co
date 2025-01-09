@@ -22,6 +22,7 @@ export default async function HomePage():Promise<JSX.Element> {
   ]).then(res=>res as any)  
 
   // dataHomePage[0] is a page inicio data, filed Data in pages cms collection
+
   const parseDataHome = JSON.parse(dataHomePage[0].data[0].data)
  
   // dataHomePage[1] is a sistemas data from cms collection sistemas
