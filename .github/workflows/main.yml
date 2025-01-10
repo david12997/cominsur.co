@@ -1,0 +1,43 @@
+name: Build and Deploy Docker Image
+
+on: 
+  pull_request:
+    branches:
+      - main  # Esto asegura que el flujo solo se ejecutará cuando haya un pull request hacia la rama principal (puedes ajustarlo según tus necesidades)
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4  # Clona el repositorio en el que estás trabajando.
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3  # Configura Docker Buildx para construir imágenes multi-plataforma.
+
+    - name: Login to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}  # Obtiene el nombre de usuario del propietario del repositorio
+        password: ${{ secrets.TOKEN_GITHUB }}  # Usar un token de autenticación de GitHub
+
+    - name: Preset Image Name
+      run: echo "IMAGE_URL=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$(echo ${{ github.sha }} | cut -c1-7) | tr '[:upper:]' '[:lower:]'" >> $GITHUB_ENV  # Define el nombre de la imagen, usando el hash del commit para crear una versión única.
+
+    - name: Build and push Docker Image
+      uses: docker/build-push-action@v5
+      with:
+        context: .  # El contexto de construcción es el directorio raíz del repositorio
+        file: ./Dockerfile  # Asegúrate de que tu Dockerfile esté en la raíz del repositorio
+        push: true  # Esto empuja la imagen construida al registro de contenedores
+        tags: ${{ env.IMAGE_URL }}  # Usa la URL definida para el nombre de la imagen
+
+    - name: Deploy Image to CapRrover
+      uses: caprover/deploy-from-github@v1.1.2
+      with:
+        server: "${{ secrets.CAPROVER_SERVER }}"  # Dirección de tu servidor CapRover (asegúrate de agregarla a tus secrets de GitHub)
+        app: "${{ secrets.APP_NAME }}"  # El nombre de tu aplicación en CapRover
+        token: "${{ secrets.APP_TOKEN }}"  # El token de tu aplicación (también debe estar en tus secrets)
+        image: ${{ env.IMAGE_URL }}  # La imagen Docker que has creado y empujado al registro
