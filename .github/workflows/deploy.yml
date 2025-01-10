@@ -40,5 +40,5 @@ jobs:
           npx caprover deploy \
             -h $CAPROVER_SERVER \
             -p $CAPROVER_PASSWORD \
-            -a my-nextjs-app \
+            -a cominsur \
             -i david12997/cominsur.co:latest
