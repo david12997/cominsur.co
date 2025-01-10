@@ -1,4 +1,4 @@
-ame: Build and Deploy Docker Image
+name: Build and Deploy Docker Image
 
 on: 
   pull_request:
