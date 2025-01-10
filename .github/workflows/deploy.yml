@@ -20,12 +20,12 @@ jobs:
       uses: docker/login-action@v3
       with:
         registry: ghcr.io
-        username: ${{ github.repository_owner }}  # Obtiene el nombre del propietario del repositorio
+        username: david12997  # Obtiene el nombre del propietario del repositorio
         password: ${{ secrets.TOKEN_GITHUB }}  # El token de GitHub almacenado en los secretos
 
     - name: Preset Image Name
       run: |
-        echo "IMAGE_URL=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$(echo ${{ github.sha }} | cut -c1-7) | tr '[:upper:]' '[:lower:]'" >> $GITHUB_ENV
+        echo "IMAGE_URL=ghcr.io/david12997/${{ github.event.repository.name }}:$(echo ${{ github.sha }} | cut -c1-7) | tr '[:upper:]' '[:lower:]'" >> $GITHUB_ENV
         # Define el nombre de la imagen, usando el hash del commit para crear una versión única.
 
     - name: Build and push Docker Image
