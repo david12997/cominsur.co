@@ -1,4 +1,4 @@
-# Use a Node.js base image with a specific version as the base image
+#  Use a Node.js base image with a specific version as the base image
 FROM node:18-alpine
 
 # Installing libvips-dev for sharp Compatibility
