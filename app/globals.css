@@ -7,6 +7,29 @@
   --quaternary-color: #4A0083;
   --light-color: #FFFFFF;
   --dark-color: #000000;
+  --websitebg-color: #e6e6e6;
+}
+
+
+body{
+  background: var(--websitebg-color);
+  overflow-x: hidden;
+}
+
+/* scroll bar styles */
+*::-webkit-scrollbar {
+  width: 10px; 
+  height:10px;              /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #919191a1;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid transparent;  /* creates padding around scroll thumb */
 }
 
 .cominsur-btn-secondary {
@@ -25,4 +48,6 @@
   background:  linear-gradient(90deg,var(--primary-color) 0%, var(--secondary-color) 50%,var(--tertiary-color) 100%);
   font-weight: bold;
   color: var(--light-color);
+
+
 }
