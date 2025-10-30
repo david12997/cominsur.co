@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IconhamburgerMenu } from "../icons";
+import { NewRequests } from "@/helpers/request.data";
 
 type Nav1Props = {
     
@@ -12,8 +13,13 @@ type Nav1Props = {
 
 };
 
-const Nav1: React.FC<Nav1Props> = ({links, logoSrc, logoAlt, btnGetQuoteLabel, btnGetQuoteHref }) => {
+const Nav1: React.FC<Nav1Props> = async({links, logoSrc, logoAlt, btnGetQuoteLabel, btnGetQuoteHref }) => {
 
+    const brandData = await NewRequests([`https://${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/brand`],'GET')
+    .then(res=>res)
+    .catch(err=>console.log(err));
+    
+    console.log('brandData nav1:', brandData);
 
     const dataNav1 = {
         brandLogo: {

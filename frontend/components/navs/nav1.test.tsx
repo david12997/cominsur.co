@@ -1,4 +1,4 @@
-import React from 'react';
+import { JSX } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Nav1 from './nav1';
@@ -18,60 +18,76 @@ jest.mock('next/link', () => ({
     default: ({ href, children }: any) => <a href={href}>{children}</a>,
 }));
 
+// Mock NewRequests so tests don't perform real network calls. Return a sensible shape.
+jest.mock('../../../helpers/request.data', () => ({
+    __esModule: true,
+    NewRequests: jest.fn().mockResolvedValue([
+        {
+            // adapt to whatever your API returns; Nav1 only logs brandData so any value is fine
+            id: 'brand-1',
+            data: [{ image: 'https://example.com/logo.png' }],
+        },
+    ]),
+}));
+
 describe('Nav1 component', () => {
-    test('renders without crashing', () => {
-        const { container } = render(<Nav1 />);
+    test('renders without crashing (server component)', async () => {
+        // Server components are async; call the component function and render its returned element
+        const element = await (Nav1 as unknown as (props: any) => Promise<JSX.Element>)({});
+        const { container } = render(element);
         expect(container).toBeInTheDocument();
     });
 
-    test('renders logo image when provided (src + alt)', () => {
+    test('renders logo image when provided (src + alt)', async() => {
         const logoSrc = 'https://example.com/logo.png';
         const logoAlt = 'Acme Co.';
-        render(<Nav1 logoSrc={logoSrc} logoAlt={logoAlt} />);
+        const element = await (Nav1 as unknown as (props: any) => Promise<JSX.Element>)({ logoSrc, logoAlt });
+        render(element);
 
-        const img = screen.getByAltText(logoAlt);
+        const img = await screen.findByAltText(logoAlt);
         expect(img).toBeInTheDocument();
         expect(img).toHaveAttribute('src', logoSrc);
     });
 
-    test('renders provided navigation items as links with correct hrefs', () => {
+    test('renders provided navigation items as links with correct hrefs', async() => {
         const items = [
             { label: 'Home', href: '/' },
             { label: 'About', href: '/about' },
             { label: 'Contact', href: '/contact' },
         ];
-        render(<Nav1 links={items} />);
+        const element = await (Nav1 as unknown as (props: any) => Promise<JSX.Element>)({ links: items });
+        render(element);
 
-        items.forEach((it) => {
+        for (const it of items) {
             const link = screen.getByRole('link', { name: it.label });
             expect(link).toBeInTheDocument();
-            // link should have the provided href
             expect(link).toHaveAttribute('href', it.href);
-        });
+        }
 
         const links = screen.getAllByRole('link');
-        expect(links.length).toBeGreaterThanOrEqual(items.length);
+        expect(links.length).toBeGreaterThanOrEqual(items.length + 1); // includes brand link
     });
 
-    test('renders get-quote link with provided label and href', () => {
+    test('renders get-quote link with provided label and href', async() => {
         const label = 'Get Quote';
         const href = '/cotizar-now';
-        render(<Nav1 btnGetQuoteLabel={label} btnGetQuoteHref={href} />);
+        const element = await (Nav1 as unknown as (props: any) => Promise<JSX.Element>)({ btnGetQuoteLabel: label, btnGetQuoteHref: href });
+        render(element);
 
         const quoteLink = screen.getByRole('link', { name: label });
         expect(quoteLink).toBeInTheDocument();
         expect(quoteLink).toHaveAttribute('href', href);
     });
 
-    test('links are keyboard focusable', () => {
+    test('links are keyboard focusable', async() => {
         const items = [{ label: 'One', href: '/one' }];
-        render(<Nav1 links={items} />);
+        const element = await (Nav1 as unknown as (props: any) => Promise<JSX.Element>)({ links: items });
+        render(element);
 
         const link = screen.getByRole('link', { name: 'One' });
         link.focus();
         expect(link).toHaveFocus();
 
-        // pressing Enter should not throw; ensure link exists and is actionable
         fireEvent.keyDown(link, { key: 'Enter', code: 'Enter' });
         expect(link).toBeTruthy();
     });
