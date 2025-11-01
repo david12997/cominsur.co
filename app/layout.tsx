@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {  Inter } from "next/font/google";
 import "./globals.css";
+import Nav1 from "@/frontend/components/navs/nav1";
 
 const geistSans = Inter({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Nav1 />
         {children}
       </body>
     </html>

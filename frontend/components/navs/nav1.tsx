@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IconhamburgerMenu } from "../icons";
-import { NewRequests } from "@/helpers/request.data";
+
 
 type Nav1Props = {
     
@@ -15,11 +15,6 @@ type Nav1Props = {
 
 const Nav1: React.FC<Nav1Props> = async({links, logoSrc, logoAlt, btnGetQuoteLabel, btnGetQuoteHref }) => {
 
-    const brandData = await NewRequests([`https://${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/brand`],'GET')
-    .then(res=>res)
-    .catch(err=>console.log(err));
-    
-    console.log('brandData nav1:', brandData);
 
     const dataNav1 = {
         brandLogo: {
@@ -66,7 +61,7 @@ const Nav1: React.FC<Nav1Props> = async({links, logoSrc, logoAlt, btnGetQuoteLab
         </div>
 
         <div className="get-quote hidden md:flex md:col-start-4 md:col-end-5  justify-end items-center pr-8">
-            <Link href={dataNav1.getQuote.href} className="p-4 flex justify-center cominsur-btn-quote shadow-sm px-4 py-2 w-[80%] min-w-[215px] lg:min-w-[240px] h-[40px] hover:w-[82%] hover:h-[45px] rounded-sm text-[16px] lg:text-[18px]">
+            <Link href={dataNav1.getQuote.href} className="p-4 flex justify-center cominsur-btn-quote shadow-sm px-4 py-2 w-[80%] min-w-[215px] lg:min-w-[240px] h-[45px] hover:w-[82%] hover:h-[48px] rounded-sm text-[16px] lg:text-[18px]">
                 {dataNav1.getQuote.label}
             </Link>
         </div>

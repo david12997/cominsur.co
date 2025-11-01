@@ -18,17 +18,6 @@ jest.mock('next/link', () => ({
     default: ({ href, children }: any) => <a href={href}>{children}</a>,
 }));
 
-// Mock NewRequests so tests don't perform real network calls. Return a sensible shape.
-jest.mock('../../../helpers/request.data', () => ({
-    __esModule: true,
-    NewRequests: jest.fn().mockResolvedValue([
-        {
-            // adapt to whatever your API returns; Nav1 only logs brandData so any value is fine
-            id: 'brand-1',
-            data: [{ image: 'https://example.com/logo.png' }],
-        },
-    ]),
-}));
 
 describe('Nav1 component', () => {
     test('renders without crashing (server component)', async () => {
