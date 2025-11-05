@@ -20,8 +20,8 @@ const Nav1: React.FC<Nav1Props> = async({links, logoSrc, logoAlt, btnGetQuoteLab
         brandLogo: {
             src: logoSrc || 'https://cms.cominsur.com.co/cominsur/assets/g7y7rumo0i88skg4',
             alt: logoAlt || 'Cominsur perfilería en aluminio',
-            width: 180,
-            height: 70,
+            width: 190,
+            height: 80,
         },
         links: links || [
             { href: '/', label: 'Inicio' },
@@ -39,7 +39,7 @@ const Nav1: React.FC<Nav1Props> = async({links, logoSrc, logoAlt, btnGetQuoteLab
     }
 
   return<>
-    <nav className="w-[100%] h-[60px] bg-white grid grid-cols-2 md:grid-cols-4 shadow-sm">
+    <nav className="w-[100%] h-[60px] bg-white grid grid-cols-2 md:grid-cols-4 shadow-sm top-0 fixed z-50">
 
         <div className="brand-logo col-start-1 col-end-1 md:col-end-2 flex items-center pl-2 md:pl-6">
             <Link href="/">
@@ -54,7 +54,7 @@ const Nav1: React.FC<Nav1Props> = async({links, logoSrc, logoAlt, btnGetQuoteLab
         </div>
 
         <div className="links hidden md:flex md:col-start-2 md:col-end-4 justify-end items-center space-x-8   md:w-[400px] lg:w-auto">
-            {dataNav1.links.map((link, index) => <Link key={index} href={link.href} className="text-gray-500 hover:text-[#4A0083] font-bold text-[16px] lg:text-[18px]">
+            {dataNav1.links.map((link, index) => <Link key={index} href={link.href} className="text-gray-500 hover:text-[#4A0083] font-semibold text-[16px] lg:text-[18px]">
                     {link.label}
                 </Link>
             )}

@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Carrousel1 component matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="hidden md:block mt-[90px]  "
+  >
+    <div
+      class="carousel-root"
+    >
+      <div
+        class="carousel carousel-slider"
+        style="width: 100%;"
+      >
+        <ul
+          class="control-dots"
+        >
+          <li
+            aria-label="slide item 1"
+            class="dot selected"
+            role="button"
+            tabindex="0"
+            value="0"
+          />
+          <li
+            aria-label="slide item 2"
+            class="dot"
+            role="button"
+            tabindex="0"
+            value="1"
+          />
+        </ul>
+        <button
+          aria-label="previous slide / item"
+          class="control-arrow control-prev"
+          type="button"
+        />
+        <div
+          class="slider-wrapper axis-horizontal"
+        >
+          <ul
+            class="slider animated"
+            style="-webkit-transform: translate3d(-100%,0,0); transform: translate3d(-100%,0,0); transition-duration: 350ms;"
+          >
+            <li
+              class="slide"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  src="/images/banner2.jpg"
+                />
+              </div>
+            </li>
+            <li
+              class="slide selected previous"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  src="/images/banner1.jpg"
+                />
+              </div>
+            </li>
+            <li
+              class="slide"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  src="/images/banner2.jpg"
+                />
+              </div>
+            </li>
+            <li
+              class="slide selected previous"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  src="/images/banner1.jpg"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <button
+          aria-label="next slide / item"
+          class="control-arrow control-next"
+          type="button"
+        />
+        <p
+          class="carousel-status"
+        >
+          1 of 2
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="block md:hidden mt-[90px]"
+  >
+    <div
+      class="carousel-root"
+    >
+      <div
+        class="carousel carousel-slider"
+        style="width: 100%;"
+      >
+        <ul
+          class="control-dots"
+        >
+          <li
+            aria-label="slide item 1"
+            class="dot selected"
+            role="button"
+            tabindex="0"
+            value="0"
+          />
+          <li
+            aria-label="slide item 2"
+            class="dot"
+            role="button"
+            tabindex="0"
+            value="1"
+          />
+        </ul>
+        <button
+          aria-label="previous slide / item"
+          class="control-arrow control-prev"
+          type="button"
+        />
+        <div
+          class="slider-wrapper axis-horizontal"
+        >
+          <ul
+            class="slider animated"
+            style="-webkit-transform: translate3d(-100%,0,0); transform: translate3d(-100%,0,0); transition-duration: 350ms;"
+          >
+            <li
+              class="slide"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  height="600"
+                  src="/images/banner2_mobile.jpg"
+                  width="1920"
+                />
+              </div>
+            </li>
+            <li
+              class="slide selected previous"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  height="600"
+                  src="/images/banner1_mobile.jpg"
+                  width="1920"
+                />
+              </div>
+            </li>
+            <li
+              class="slide"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  height="600"
+                  src="/images/banner2_mobile.jpg"
+                  width="1920"
+                />
+              </div>
+            </li>
+            <li
+              class="slide selected previous"
+            >
+              <div>
+                <img
+                  alt="Cominsur importadores mayoristas de perfileria de aluminio"
+                  height="600"
+                  src="/images/banner1_mobile.jpg"
+                  width="1920"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <button
+          aria-label="next slide / item"
+          class="control-arrow control-next"
+          type="button"
+        />
+        <p
+          class="carousel-status"
+        >
+          1 of 2
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

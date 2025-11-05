@@ -1,3 +1,4 @@
+"use client";
 
 type BtnQuoteProps = {
     onClick?: () => void;

@@ -1,3 +1,4 @@
+"use client";
 
 type BtnSecondaryProps = {
     onClick?: () => void;

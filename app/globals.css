@@ -7,6 +7,7 @@
   --quaternary-color: #4A0083;
   --light-color: #FFFFFF;
   --dark-color: #000000;
+  --gray-color: #6A6A6A;
   --websitebg-color: #e6e6e6;
 }
 
@@ -15,6 +16,28 @@ body{
   background: var(--websitebg-color);
   overflow-x: hidden;
 }
+
+.gray-text{
+  color: var(--gray-color);
+}
+
+.color-primary{
+  color: var(--primary-color);
+}
+
+.color-secondary{
+  color: var(--secondary-color);
+}
+
+.color-tertiary{
+  color: var(--tertiary-color);
+}
+
+.color-quaternary{
+  color: var(--quaternary-color);
+}
+
+
 
 /* scroll bar styles */
 *::-webkit-scrollbar {

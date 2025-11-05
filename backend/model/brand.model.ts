@@ -24,10 +24,10 @@ type BrandData = {
 };
 
 type BrandMedia = {
-    banners: Array<{
+    banners:{
         desktop: string[];
         mobile: string[];
-    }>;
+    };
 
 }
 
