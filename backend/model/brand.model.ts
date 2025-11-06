@@ -10,7 +10,8 @@ type BrandData = {
     name: string;
     logo_dark: string;
     logo_light: string;
-    about_us: string;
+    about: string;
+    about2: string;
     short_description: string;
     description: string;
     phone1: string;

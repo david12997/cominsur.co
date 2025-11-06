@@ -1,7 +1,9 @@
 import Brand from "@/backend/model/brand.model";
+import { System } from "@/backend/model/system.model";
 import Carousel1 from "@/frontend/components/carousel/carousel1";
 import Nav1 from "@/frontend/components/navs/nav1";
 import SectionAbout from "@/frontend/components/sections/section.about";
+import SectionSystem from "@/frontend/components/sections/section.system";
 import { NewRequests } from "@/helpers/request.data";
 
 export default async function Home() {
@@ -9,38 +11,51 @@ export default async function Home() {
   // handle brand data fetching and possible errors
 
   let brand: Brand | null = null;
+  let system: System[] | null = null;
 
   try {
-    const brandData = await NewRequests([`${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/brand/1`],'GET')
+    const dataHome = await NewRequests([
+      `${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/brand/1`,
+       `${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/system`,
     
-    type BrandResponseShape = { data?: unknown };
+    ],'GET')
 
-    function extractBrand(item: unknown): Brand | null {
-      if (!item || typeof item !== "object") return null;
-      const candidate = item as BrandResponseShape;
-      if (!candidate.data || typeof candidate.data !== "object") return null;
-      return candidate.data as Brand;
-    }
-
-    brand = Array.isArray(brandData) && brandData.length > 0
-      ? extractBrand(brandData[0])
-      : null;
+    brand = dataHome[0].data as Brand;
+    system = dataHome[1].data as System[];
+    
 
   } catch (error) {
-    console.error("Error fetching brand data:", error);
-    brand = null;
+    console.log("Error fetching brand data:", error);
   }
+    
+
 
   return<>
-    <main>
-      <Nav1 
+   
+    <Nav1 
+    
+    />
+    <Carousel1 
       
-      />
-      <Carousel1 
-        bannersDesktop={brand?.media?.banners.desktop || []} 
-        bannersMobile={brand?.media?.banners.mobile || []} 
-      />
-      <SectionAbout />
-    </main>
+    />
+    <SectionAbout 
+
+    />
+
+    {
+      system 
+      &&
+      system.map((sys) => (
+        <SectionSystem
+          id={sys.id}
+          key={sys.id}
+          title={sys.name}
+          description={sys.description}
+          imgUrl={sys.media.ventana}
+        />
+      ))
+    }
+    
+
   </>
 }

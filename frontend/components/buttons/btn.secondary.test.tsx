@@ -1,5 +1,20 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+
+jest.mock("next/navigation", () => ({
+    useRouter: () => ({
+        push: jest.fn(),
+        replace: jest.fn(),
+        prefetch: jest.fn(),
+        pathname: "/",
+    }),
+    usePathname: () => "/",
+    useSearchParams: () => ({
+        get: () => null,
+        toString: () => "",
+    }),
+}));
+
 import BtnSecondary from "./btn.secondary";
 
 describe("BtnSecondary component", () => {
