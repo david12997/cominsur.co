@@ -3,6 +3,7 @@ import { System } from "@/backend/model/system.model";
 import Carousel1 from "@/frontend/components/carousel/carousel1";
 import Nav1 from "@/frontend/components/navs/nav1";
 import SectionAbout from "@/frontend/components/sections/section.about";
+import SectionContact from "@/frontend/components/sections/section.contact";
 import SectionSystem from "@/frontend/components/sections/section.system";
 import { NewRequests } from "@/helpers/request.data";
 
@@ -15,9 +16,9 @@ export default async function Home() {
 
   try {
     const dataHome = await NewRequests([
-      `${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/brand/1`,
-       `${process.env.NEXT_PUBLIC_API_URL}/cominsur/items/system`,
-    
+      `${process.env.NEXT_PUBLIC_COMINSIR_API}/brand/1`,
+       `${process.env.NEXT_PUBLIC_COMINSIR_API}/systems`,
+
     ],'GET')
 
     brand = dataHome[0].data as Brand;
@@ -55,6 +56,10 @@ export default async function Home() {
         />
       ))
     }
+
+    <SectionContact 
+    
+    />
     
 
   </>

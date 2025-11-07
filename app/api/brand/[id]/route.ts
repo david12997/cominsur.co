@@ -22,7 +22,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
             return NextResponse.json({ error: 'Brand not found' }, { status: 404 });
         }
 
-        return NextResponse.json({ brand }, { status: 200 });
+        
+        return NextResponse.json({ data:brand.data });
 
     } catch (err) {
         console.error('[api/brand/[id]/route] GET error:', err);

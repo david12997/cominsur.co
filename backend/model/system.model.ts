@@ -22,3 +22,5 @@ export interface System {
     data: SystemData;
     media: SystemMedia;
 }
+
+export default System;
