@@ -3,7 +3,7 @@
 exports[`Carrousel1 component matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="hidden md:block mt-[90px]  "
+    class="hidden md:block mt-[10px]  "
   >
     <div
       class="carousel-root"
@@ -98,7 +98,7 @@ exports[`Carrousel1 component matches snapshot 1`] = `
     </div>
   </div>
   <div
-    class="block md:hidden mt-[90px]"
+    class="block md:hidden mt-[10px]"
   >
     <div
       class="carousel-root"

@@ -8,7 +8,7 @@
   --light-color: #FFFFFF;
   --dark-color: #000000;
   --gray-color: #6A6A6A;
-  --websitebg-color: #e6e6e6;
+  --websitebg-color: #dadada;
 }
 
 
@@ -36,6 +36,25 @@ body{
 .color-quaternary{
   color: var(--quaternary-color);
 }
+
+.bg-primary{
+  background-color: var(--primary-color);
+}
+.bg-secondary{
+  background-color: var(--secondary-color);
+}
+.bg-tertiary{
+  background-color: var(--tertiary-color);
+}
+.bg-quaternary{
+  background-color: var(--quaternary-color);
+}
+
+.bg-website{
+  background-color: var(--websitebg-color);
+}
+
+
 
 
 

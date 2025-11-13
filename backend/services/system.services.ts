@@ -15,6 +15,19 @@ export class SystemService {
 
          let systems = await this.SystemRepository.GetAllSystems();
 
+         // trasnfor data and media from string to json when is not null
+         if(systems && systems.data){
+            systems.data = systems.data.map((sys:any) => {
+                if(sys.data){
+                    sys.data = JSON.parse(sys.data);
+                }
+                if(sys.media){
+                    sys.media = JSON.parse(sys.media);
+                }
+                return sys;
+            });
+         }
+
          return systems;
     }
 

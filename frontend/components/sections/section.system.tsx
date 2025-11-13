@@ -37,7 +37,7 @@ const SectionSystem: React.FC<SectionSystemProps> = ({ title, description, imgUr
                     />
                 </div>
 
-                <div className="about-system w-[100%] md:w-[50%] md:p-[50px] md:pt-[100px]">
+                <div className="about-system w-[100%] md:w-[50%] md:p-[50px] md:pt-[100px]"  >
                     <div className="title-system color-quaternary font-semibold text-[20px]">Sistema {dataSectionSystem.title}</div>
                     <div className="description-system gray-text text-justify mt-4 text-[18px] h-[180px] md:h-auto overflow-y-scroll p-2 md:p-0">
                         {dataSectionSystem.description}

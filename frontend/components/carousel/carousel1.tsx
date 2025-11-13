@@ -32,7 +32,7 @@ const Carousel1: React.FC<Carousel1Props> = ({ bannersDesktop, bannersMobile }) 
 
     return<>
 
-        <div className="hidden md:block mt-[90px]  ">
+        <div className="hidden md:block mt-[10px]  ">
             <Carousel 
                 autoPlay={true} showThumbs={false} emulateTouch={true} swipeable={true} infiniteLoop={true}
             >
@@ -44,7 +44,7 @@ const Carousel1: React.FC<Carousel1Props> = ({ bannersDesktop, bannersMobile }) 
             </Carousel>
         </div>
 
-        <div className="block md:hidden mt-[90px]">
+        <div className="block md:hidden mt-[10px]">
             <Carousel 
                 autoPlay={true} showThumbs={false} emulateTouch={true} swipeable={true} infiniteLoop={true}
             >
