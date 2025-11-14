@@ -52,27 +52,19 @@ export default async function Home() {
 
     />
 
-    <ReduxProvider>
-      <ReduxWrapper
-        entityType="system"
-        actionType="systems/setSystems"
-        entity={system}
-      />  
-    </ReduxProvider>
-
-      {
-        system 
-        &&
-        system.map((sys) => (
-          <SectionSystem
-            id={sys.id}
-            key={sys.id}
-            title={sys.name}
-            description={sys.description}
-            imgUrl={sys.media.ventana}
-          />
-        ))
-      }
+    {
+      system 
+      &&
+      system.map((sys) => (
+        <SectionSystem
+          id={sys.id}
+          key={sys.id}
+          title={sys.name}
+          description={sys.description}
+          imgUrl={sys.media.ventana}
+        />
+      ))
+    }
     
 
     <SectionContact 

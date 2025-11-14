@@ -6,10 +6,12 @@ import { persistConfig } from "./persist.config";
 
 
 import SystemsSliceReducer from "./slices/systems";
+import ReferencesSliceReducer from "./slices/references";
 
 const rootReducer = combineReducers({
 
     systems: SystemsSliceReducer,
+    references: ReferencesSliceReducer,
 });
 
 const savedPersistReducer = persistReducer(persistConfig,rootReducer);

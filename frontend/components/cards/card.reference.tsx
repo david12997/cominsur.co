@@ -97,7 +97,7 @@ const CardReference: React.FC<CardReferenceProps> = ({ name,reference, color, pi
             </div>
 
             <div className="container-btn w-[96%] h-[15%] relative  flex justify-center items-center">
-                <BtnSecondary text="SOLICITAR COTIZACION" height="60px" />
+                <BtnSecondary text="SOLICITAR COTIZACION" height="54px" />
             </div>
 
         </div>

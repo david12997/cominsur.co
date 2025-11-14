@@ -8,6 +8,7 @@ import BreadCrumb from "@/frontend/components/navs/breadcrumb";
 import Nav1 from "@/frontend/components/navs/nav1";
 import SectionCatalogue from "@/frontend/components/sections/section.catalogue";
 
+
 import { NewRequests } from "@/helpers/request.data";
 
 
@@ -43,9 +44,12 @@ export default async function Catalogo() {
     
     />
     <BreadCrumb />
+    
+
+
     <SectionCatalogue
-    systems={system}
-    references={reference}
+      systems={system}  
+      references={reference}
 
     />
 
