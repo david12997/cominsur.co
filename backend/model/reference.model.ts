@@ -21,6 +21,9 @@ export interface Reference {
     description: string;
     data: ReferenceData;
     media: ReferenceMedia;
+    color: string;
+    piecePerPackage: number;
+    pricePerPiece: number;
 }
 
 export default Reference;

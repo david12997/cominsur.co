@@ -6,5 +6,9 @@ class SystemsServices {
         
         appDispatch({ type: actionType, payload: entity });
     }
+    setCurrentSystem(actionType:string, system:string | number, appDispatch:any): void {
+        
+        appDispatch({ type: actionType, payload: system });
+    }
 }
 export const systemsServices = new SystemsServices();

@@ -1,0 +1,115 @@
+import Reference from "@/backend/model/reference.model";
+import System from "@/backend/model/system.model";
+import React from "react";
+import { systemsServices } from "../services/systems.services";
+import { referencesServices } from "../services/references.services";
+import { useAppDispatch, useAppSelector } from "../store";
+
+
+type UseCatalogueHookProps = {
+    systems?: System[] | null;
+    references?: Reference[] | null;
+    dispatchInjected?: any;
+
+};
+
+const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalogueHookProps) => {
+
+    const dispatch =  useAppDispatch();
+    
+    const currentReferences = useAppSelector( (state) => state.references.references );
+    const currentSystems = useAppSelector( (state) => state.systems.systems );
+    const currentSystem = useAppSelector( (state) => state.systems.currentSystem );
+    const currentOffset = useAppSelector( (state) => state.references.offset );
+    const currentLimit = useAppSelector( (state) => state.references.limit );
+    const currentReferencesLoading = useAppSelector( (state) => state.references.loading );
+ 
+
+    React.useEffect( () => {
+
+        if (currentSystem === "todos") {
+            SetAllReferences(references);
+        } else if (currentSystem !== null && currentSystem !== "todos") {
+            SetReferencesBySystem(currentSystem);
+        } else {
+            SetAllReferences(references);
+        }
+
+        SetAllSystems(systems);
+        SetReferencesSearchOptions(0,10);
+
+    }, []);
+
+
+    const SetCurrentSystem = ( system: string | number | null ) => {
+        
+        if(system === null) return;
+        if(system === 'todos' ){
+            systemsServices.setCurrentSystem("systems/setCurrentSystem", "todos", dispatch);
+            return;
+        }
+        systemsServices.setCurrentSystem("systems/setCurrentSystem", parseInt(system as string), dispatch);
+    };
+
+    const SetReferencesSearchOptions = ( offset: number, limit: number ) => {
+
+        referencesServices.setOffset("references/setOffset", offset, dispatch);
+        referencesServices.setLimit("references/setLimit", limit, dispatch);
+    };
+
+    const SetAllSystems = (newSystems: System[] | null | undefined) => {
+        
+        if(newSystems === null || newSystems === undefined) return;
+        systemsServices.setAllsystems("systems/setSystems", newSystems as System[], dispatch);
+    };
+
+    const SetAllReferences = (newReferences: Reference[] | null | undefined) => {
+
+        if(newReferences === null || newReferences === undefined) return;
+        referencesServices.setAllReferences("references/setReferences", newReferences as Reference[], dispatch);
+    };
+
+    const SetReferencesBySystem = async ( systemId: number | string ) => {
+
+        const referencesBySystem = await referencesServices.getReferencesBySystem(systemId, currentLimit, 0);
+        if(referencesBySystem === null || referencesBySystem === undefined) return;
+        referencesServices.setAllReferences("references/setReferences", referencesBySystem as Reference[], dispatch);
+        SetReferencesSearchOptions(0, currentLimit);
+        SetReferencesLoading(false);
+    };
+
+    const LoadMoreReferences = async (currentSystem: string | number | null) => {
+        
+        const moreReferences = await referencesServices.loadMoreReferences(currentLimit, currentOffset+10, currentSystem);
+        if(moreReferences === null || moreReferences === undefined) return;
+        const updatedReferences = currentReferences ? [...currentReferences, ...moreReferences] : moreReferences;
+        SetAllReferences( updatedReferences );
+        SetReferencesSearchOptions( currentOffset + 10, currentLimit );
+        
+    };
+
+    const SetReferencesLoading = ( loading: boolean ) => {
+        referencesServices.setLoading("references/setLoading", loading, dispatch);
+    }
+
+    
+    
+    return {
+        
+        SetAllSystems,
+        SetAllReferences,
+        LoadMoreReferences,
+        SetReferencesSearchOptions,
+        SetCurrentSystem,
+        SetReferencesBySystem,
+        SetReferencesLoading,
+        currentReferencesLoading,
+        currentReferences,
+        currentSystems,
+        currentSystem,
+        currentOffset,
+        currentLimit
+    };
+}
+
+export default useCatalogueHook;

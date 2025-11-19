@@ -5,7 +5,7 @@ import MapContact from "./map";
 
 const ref = React.createRef<HTMLDivElement>();
 
-jest.mock("../../hooks/useGoogleMap", () => {
+jest.mock("../../hooks/use.google.map", () => {
     return {
         __esModule: true,
         default: () => ({ htmlRef: ref }),

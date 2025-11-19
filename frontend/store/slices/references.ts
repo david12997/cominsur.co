@@ -30,9 +30,15 @@ export const referencesSlice = createSlice({
         },
         setLimit(state, action: PayloadAction<number>) {
             state.limit = action.payload;
+        },
+        setLoading(state, action: PayloadAction<boolean>) {
+            state.loading = action.payload;
+        }
+        ,setError(state, action: PayloadAction<string | null>) {
+            state.error = action.payload;
         }
     },
 });
 
-export const { setReferences, setOffset, setLimit } = referencesSlice.actions;
+export const { setReferences, setOffset, setLimit, setLoading, setError } = referencesSlice.actions;
 export default referencesSlice.reducer;

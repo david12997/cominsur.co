@@ -1,6 +1,6 @@
 "use client";
 
-import useGoogleMap from "@/frontend/hooks/useGoogleMap";
+import useGoogleMap from "@/frontend/hooks/use.google.map";
 
 
 

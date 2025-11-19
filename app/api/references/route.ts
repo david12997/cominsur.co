@@ -10,19 +10,32 @@ export async function GET(request: Request) {
         const url = new URL(request.url);
         const limitParam = url.searchParams.get('limit');
         const offsetParam = url.searchParams.get('offset');
+        const systemParam = url.searchParams.get('system');
 
         const limit = limitParam ? parseInt(limitParam, 10) : -1;
         const offset = offsetParam ? parseInt(offsetParam, 10) : 0;
+     
 
-        const svc = new ReferenceService();
-        const refs = await svc.getAllReferences(limit, offset);
+        const refService = new ReferenceService();
 
-        if (!refs || !refs.success) {
-            // Return whatever data or message the service provided
-            return NextResponse.json({ data: refs?.data ?? null, error: refs?.error ?? null }, { status: 200 });
+        if (systemParam === null || systemParam === undefined || systemParam === '' || systemParam === 'todos') {
+            const refs = await refService.getAllReferences(limit, offset);
+            if (!refs || !refs.success) {
+                // Return whatever data or message the service provided
+                return NextResponse.json({ data: refs?.data ?? null, error: refs?.error ?? null }, { status: 200 });
+            }
+            return NextResponse.json({ data: refs.data }, { status: 200 });
+        } else {
+            const refs = await refService.getReferencesBySystem(systemParam, limit, offset);
+            if (!refs || !refs.success) {
+                // Return whatever data or message the service provided
+                return NextResponse.json({ data: refs?.data ?? null, error: refs?.error ?? null }, { status: 200 });
+            }
+            return NextResponse.json({ data: refs.data }, { status: 200 });
         }
+            
 
-        return NextResponse.json({ data: refs.data }, { status: 200 });
+        
     } catch (err) {
         console.error('[api/reference] GET error', err);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

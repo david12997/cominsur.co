@@ -3,37 +3,22 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardReference from "../cards/card.reference";
 import Reference from "@/backend/model/reference.model";
-import { useAppDispatch, useAppSelector } from "@/frontend/store";
+
 import React from "react";
-import { referencesServices } from "@/frontend/services/references.services";
+import useCatalogueHook from "@/frontend/hooks/use.catalogue";
+import System from "@/backend/model/system.model";
 
 type CardsInfinityScrollProps = {
+    systems?: System[] | null | undefined;
     references?: Reference[] | null | undefined;
     offset?: number;
     limit?: number;
 };
     
-const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ references, offset = 0, limit = 10 }) => {
-
-    const[ currnentReferences, setCurrentReferences ] = React.useState<Reference[] | null | undefined>(references);
-
-    const appDispatch = useAppDispatch();
-    const referencesFromStore = useAppSelector((state) => state.references.references);
-
-    React.useEffect(() => {
-        
-        if(referencesFromStore && referencesFromStore.length > 0) {
-            setCurrentReferences(referencesFromStore);
-        } else {
-            referencesServices.setAllReferences("references/setReferences", references as Reference[], appDispatch)
-        }
+const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ systems, references, offset = 0, limit = 10 }) => {
 
 
-    }, [referencesFromStore]);
-
-
-
-
+    const catalogueHook = useCatalogueHook({ systems, references });
 
     return<>
 
@@ -43,10 +28,11 @@ const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ references, o
             <InfiniteScroll
                 scrollableTarget="scrollableDiv"
                 className='w-[100%] h-[100%] flex flex-wrap justify-center items-center'
-                dataLength={currnentReferences ? currnentReferences.length : 0} //This is important field to render the next data
+                dataLength={ catalogueHook.currentReferences?.length ?? 0} //This is important field to render the next data
                 next={() => {
 
-                    setCurrentReferences(null);
+                    catalogueHook.LoadMoreReferences(catalogueHook?.currentSystem);
+                    
                 }}
                 hasMore={true}
                 loader={<h4 className='w-[100%] h-[60px] flex items-center justify-center font-extrabold text-[#4a0083] mt-2 mb-2'>Cargando...</h4>}
@@ -58,10 +44,15 @@ const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ references, o
                 
             >
             {
-                currnentReferences!== undefined && currnentReferences !== null ?
-                currnentReferences.map( (reference) => (
+                     !catalogueHook.currentReferencesLoading && catalogueHook.currentReferences !== undefined && catalogueHook.currentReferences !== null ?
+                    catalogueHook.currentReferences.map( (reference) => (
                     <CardReference
                         key={reference.id}
+                        name={reference.name}
+                        reference={reference.data.referencia}
+                        color={reference.color}
+                        piecePerPackage={reference.piecePerPackage}
+                        description={reference.description}
                         imgUrl3d={reference.media.img2 || "https://cms.cominsur.com.co/cominsur/assets/a1q91wg7v280soso"}
                         imgUrlPlane={reference.media.img1 || "https://cms.cominsur.com.co/cominsur/assets/ovburjz6b0g4occc"}
                     />  

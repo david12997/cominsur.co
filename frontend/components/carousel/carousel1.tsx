@@ -46,7 +46,7 @@ const Carousel1: React.FC<Carousel1Props> = ({ bannersDesktop, bannersMobile }) 
 
         <div className="block md:hidden mt-[10px]">
             <Carousel 
-                autoPlay={true} showThumbs={false} emulateTouch={true} swipeable={true} infiniteLoop={true}
+                autoPlay={true} showThumbs={false} emulateTouch={true} swipeable={false} infiniteLoop={true}
             >
                 {dataCarousel.bannersMobile.map((banner, index) => (
                     <div key={index} onClick={() => router.push('/cotizar')}>

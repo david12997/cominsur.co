@@ -62,7 +62,7 @@ const FooterV1: React.FC<FooterV1Props> = ({titleSiteMap, siteMap, contactInfo, 
                                     <Link 
                                         key={index}
                                         href={link.href}
-                                        className={link.name === "Solicitar cotización" ? "flex justify-center md:justify-start   w-[100%] mb-2 font-semibold color-quaternary hover:text-gray-900" : "flex justify-center md:justify-start   w-[100%] mb-2 font-semibold gray-text hover:text-gray-900"}
+                                        className={"flex justify-center md:justify-start   w-[100%] mb-2 font-semibold gray-text hover:text-gray-900"}
                                     >{link.name}</Link>
                                 ))  
                             }

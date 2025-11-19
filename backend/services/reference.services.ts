@@ -71,6 +71,43 @@ export class ReferenceService {
 
         return res;
     }
+
+    // get references by system id
+    async getReferencesBySystem(systemId: number | string, limit: number = -1, offset: number = 0) {
+        if (!this.ReferenceRepository) throw new Error("ReferenceRepository is required");
+       
+        let refs = await this.ReferenceRepository.GetReferencesBySystem(systemId, limit, offset);
+
+         // transform data and media from string to json when present
+        if (refs && refs.data) {
+            refs.data = (refs.data as any[]).map((ref: any) => {
+                if (ref.data && typeof ref.data === "string") {
+                    try {
+                        ref.data = JSON.parse(ref.data);
+                    } catch (e) {
+                        // leave as-is if parse fails
+                    }
+                }
+                if (ref.media && typeof ref.media === "string") {
+                    try {
+                        ref.media = JSON.parse(ref.media);
+                    } catch (e) {
+                        // leave as-is
+                    }
+                }
+                if (ref.color && typeof ref.color === "string") {
+                    try {
+                        ref.color = JSON.parse(ref.color);
+                    } catch (e) {
+                        // leave as-is
+                    }
+                }
+                return ref;
+            });
+        }
+
+        return refs;
+    }
 }
 
 export const MyReferenceService = new ReferenceService();
