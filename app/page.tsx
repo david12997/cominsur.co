@@ -11,8 +11,6 @@ import Nav1 from "@/frontend/components/navs/nav1";
 import SectionAbout from "@/frontend/components/sections/section.about";
 import SectionContact from "@/frontend/components/sections/section.contact";
 import SectionSystem from "@/frontend/components/sections/section.system";
-import ReduxWrapper from "@/frontend/components/wrappers/redux.wrapper";
-import ReduxProvider from "@/frontend/store/redux.provider";
 import { NewRequests } from "@/helpers/request.data";
 
 export default async function Home() {
@@ -28,9 +26,12 @@ export default async function Home() {
        `${process.env.NEXT_PUBLIC_COMINSIR_API}/systems`,
 
     ],'GET')
+    // guard against failed fetches — NewRequests returns null for failed entries
+    const brandResp = dataHome[0] ?? null;
+    const systemsResp = dataHome[1] ?? null;
 
-    brand = dataHome[0].data as Brand;
-    system = dataHome[1].data as System[];
+    brand = brandResp && brandResp.data ? (brandResp.data as Brand) : null;
+    system = systemsResp && systemsResp.data ? (systemsResp.data as System[]) : null;
     
 
   } catch (error) {

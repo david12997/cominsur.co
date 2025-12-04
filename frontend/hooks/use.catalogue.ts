@@ -23,6 +23,8 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
     const currentOffset = useAppSelector( (state) => state.references.offset );
     const currentLimit = useAppSelector( (state) => state.references.limit );
     const currentReferencesLoading = useAppSelector( (state) => state.references.loading );
+    // Ref to track fetch session: increment when switching systems so in-flight loads can be ignored
+    const loadSessionRef = React.useRef<number>(0);
  
 
     React.useEffect( () => {
@@ -44,6 +46,8 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
     const SetCurrentSystem = ( system: string | number | null ) => {
         
         if(system === null) return;
+        // mark new load session to ignore stale load-more responses
+        loadSessionRef.current = loadSessionRef.current + 1;
         if(system === 'todos' ){
             systemsServices.setCurrentSystem("systems/setCurrentSystem", "todos", dispatch);
             return;
@@ -73,15 +77,19 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
 
         const referencesBySystem = await referencesServices.getReferencesBySystem(systemId, currentLimit, 0);
         if(referencesBySystem === null || referencesBySystem === undefined) return;
+        
         referencesServices.setAllReferences("references/setReferences", referencesBySystem as Reference[], dispatch);
         SetReferencesSearchOptions(0, currentLimit);
         SetReferencesLoading(false);
     };
 
     const LoadMoreReferences = async (currentSystem: string | number | null) => {
-        
+        // capture session at call time
+        const sessionAtCall = loadSessionRef.current;
         const moreReferences = await referencesServices.loadMoreReferences(currentLimit, currentOffset+10, currentSystem);
         if(moreReferences === null || moreReferences === undefined) return;
+        // If session changed while fetching, ignore these results
+        if (sessionAtCall !== loadSessionRef.current) return;
         const updatedReferences = currentReferences ? [...currentReferences, ...moreReferences] : moreReferences;
         SetAllReferences( updatedReferences );
         SetReferencesSearchOptions( currentOffset + 10, currentLimit );

@@ -34,21 +34,37 @@ const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references
         // run once after mount to avoid hydration mismatch
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // update displayed references whenever the store's references change
+    React.useEffect(() => {
+        if (catalogueHook?.currentReferences) {
+            setDisplayReferences(catalogueHook.currentReferences);
+        }
+    }, [catalogueHook?.currentReferences]);
+
+    // update displayed systems whenever the store's systems change
+    React.useEffect(() => {
+        if (catalogueHook?.currentSystems) {
+            setDisplaySystems(catalogueHook.currentSystems);
+        }
+    }, [catalogueHook?.currentSystems]);
  
 
     const handleSystemChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
         catalogueHook.SetReferencesLoading(true);
         const selectedSystem = event.target.value;
+        // clear displayed references while the new ones load to avoid showing stale options
+        setDisplayReferences(null);
         catalogueHook.SetCurrentSystem( selectedSystem );
         catalogueHook.SetReferencesBySystem( selectedSystem );
-       
-
-      
     };
 
     const handleReferenceChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
         const selectedReference = event.target.value;
-        // Lógica para filtrar referencias según la referencia seleccionada
+        //look upfor the reference in store by id selectedReference and then update store to show only that reference
+        const reference = catalogueHook.currentReferences?.find( (ref) => ref.id === parseInt(selectedReference) );
+        console.log("Referencia seleccionada:", reference);
+
     };
 
     return<>
@@ -58,7 +74,7 @@ const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references
 
                 <div className="select-systems w-[94%] ml-[3%] md:mt-4   ">
                     <label htmlFor="systems" className="text-[16px] font-semibold color-quaternary">Sistemas</label>
-                    <select onChange={handleSystemChange} id="systems" className="w-[100%] h-[40px] bg-gray-200 rounded-sm p-2 text-gray-600  ">
+                    <select value={catalogueHook.currentSystem  || "todos"} onChange={handleSystemChange} id="systems" className="w-[100%] h-[40px] bg-gray-200 rounded-sm p-2 text-gray-600  ">
                         <option value="todos">Seleccione un sistema</option>
                         <option value="todos">Todos  </option>
                         {displaySystems && displaySystems.map((system) => (
@@ -69,7 +85,7 @@ const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references
 
                 <div className="select-references w-[94%] ml-[3%] md:mt-4">
                     <label htmlFor="references" className="text-[16px] font-semibold color-quaternary">Referencias</label>
-                    <select id="references" className="w-[100%] h-[40px]  rounded-sm p-2 bg-gray-200 text-gray-600 ">
+                    <select onChange={handleReferenceChange} id="references" className="w-[100%] h-[40px]  rounded-sm p-2 bg-gray-200 text-gray-600 ">
                         <option value="todos">Seleccione una referencia</option>
                          <option value="todos">Todas  </option>
                             {displayReferences && displayReferences.map((reference) => (

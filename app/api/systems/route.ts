@@ -11,17 +11,15 @@ export async function GET(_: Request) {
     try {
         const MySystemService = new SystemService();
         const systems = await MySystemService.getAllSystems();
-
         // Expecting an object like { success: boolean, data: any }
         if (!systems || !systems.success) {
-            // Return whatever data or message the service provided, default to 404
-            return NextResponse.json(
-               {data:systems.data}
-            );
+            // Don't throw — return a consistent JSON payload with error details.
+            const error = systems?.error ?? { message: 'No systems available' };
+            return NextResponse.json({ data: systems?.data ?? null, error }, { status: 200 });
         }
 
-        // Successful response
-        return NextResponse.json({ data: systems.data }, { status: 200 });
+        // Successful response (systems.data should be an array)
+        return NextResponse.json({ data: systems.data ?? [] }, { status: 200 });
     } catch (err) {
         console.error('[api/systems] GET error', err);
         return NextResponse.json(

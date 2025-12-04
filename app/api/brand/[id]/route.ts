@@ -10,7 +10,9 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     try {
         const MyBrandService = new BrandService();
-        const { id } = await params || {};
+        // `params` may be a Promise in Next.js runtime - unwrap it before accessing
+        const resolvedParams = await params;
+        const id = resolvedParams?.id;
 
         if (!id) {
             return NextResponse.json({ error: 'Missing brand id' }, { status: 400 });
@@ -18,12 +20,13 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
         const brand = await MyBrandService.getBrandById(id);
 
-        if (!brand) {
-            return NextResponse.json({ error: 'Brand not found' }, { status: 404 });
+        // When repository/service fails, return consistent JSON with error details.
+        if (!brand || !brand.success) {
+            const error = brand?.error ?? { message: 'Brand not found' };
+            return NextResponse.json({ data: brand?.data ?? null, error }, { status: 200 });
         }
 
-        
-        return NextResponse.json({ data:brand.data });
+        return NextResponse.json({ data: brand.data ?? null }, { status: 200 });
 
     } catch (err) {
         console.error('[api/brand/[id]/route] GET error:', err);

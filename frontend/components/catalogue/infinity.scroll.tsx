@@ -30,7 +30,10 @@ const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ systems, refe
                 className='w-[100%] h-[100%] flex flex-wrap justify-center items-center'
                 dataLength={ catalogueHook.currentReferences?.length ?? 0} //This is important field to render the next data
                 next={() => {
-
+                    // prevent triggering loadMore while a fetch is already in progress
+                    if (catalogueHook.currentReferencesLoading) return;
+                    // console alert left for debugging; remove in production
+                    // alert("Cargando mas referencias del sistema " + catalogueHook?.currentSystem);
                     catalogueHook.LoadMoreReferences(catalogueHook?.currentSystem);
                     
                 }}
