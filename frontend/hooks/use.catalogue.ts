@@ -18,11 +18,13 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
     const dispatch =  useAppDispatch();
     
     const currentReferences = useAppSelector( (state) => state.references.references );
+    const currentReference = useAppSelector( (state) => state.references.currentReference );
     const currentSystems = useAppSelector( (state) => state.systems.systems );
     const currentSystem = useAppSelector( (state) => state.systems.currentSystem );
     const currentOffset = useAppSelector( (state) => state.references.offset );
     const currentLimit = useAppSelector( (state) => state.references.limit );
     const currentReferencesLoading = useAppSelector( (state) => state.references.loading );
+    const currentScrollDown = useAppSelector( (state) => state.references.scrollDown );
     // Ref to track fetch session: increment when switching systems so in-flight loads can be ignored
     const loadSessionRef = React.useRef<number>(0);
  
@@ -84,6 +86,8 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
     };
 
     const LoadMoreReferences = async (currentSystem: string | number | null) => {
+
+        if(currentReference !== null) return;
         // capture session at call time
         const sessionAtCall = loadSessionRef.current;
         const moreReferences = await referencesServices.loadMoreReferences(currentLimit, currentOffset+10, currentSystem);
@@ -94,16 +98,27 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
         SetAllReferences( updatedReferences );
         SetReferencesSearchOptions( currentOffset + 10, currentLimit );
         
+        
     };
 
     const SetReferencesLoading = ( loading: boolean ) => {
         referencesServices.setLoading("references/setLoading", loading, dispatch);
     }
 
+    const SetCurrentReference = ( reference: Reference | null ) => {
+        referencesServices.setCurrentReference("references/setCurrentReference", reference, dispatch);
+    }
+
+    const SetScrollDown = ( scrollDown: boolean ) => {
+        referencesServices.setScrollDown("references/setScrollDown", scrollDown, dispatch);
+    }
+
+
     
     
     return {
         
+        SetCurrentReference,
         SetAllSystems,
         SetAllReferences,
         LoadMoreReferences,
@@ -111,12 +126,15 @@ const useCatalogueHook = ({ systems, references, dispatchInjected  }: UseCatalog
         SetCurrentSystem,
         SetReferencesBySystem,
         SetReferencesLoading,
+        SetScrollDown,
         currentReferencesLoading,
         currentReferences,
+        currentReference,
         currentSystems,
         currentSystem,
         currentOffset,
-        currentLimit
+        currentLimit,
+        currentScrollDown,
     };
 }
 

@@ -17,15 +17,24 @@ type CardsInfinityScrollProps = {
     
 const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ systems, references, offset = 0, limit = 10 }) => {
 
-
+    const scrollableDivRef = React.useRef<HTMLDivElement>(null);
     const catalogueHook = useCatalogueHook({ systems, references });
+
+    React.useEffect(() => {
+        // scroll to bottom when currentSystem changes
+        if (scrollableDivRef.current && catalogueHook?.currentScrollDown) {
+            scrollableDivRef.current.scrollTo({ top: scrollableDivRef.current.scrollHeight -1200, behavior: 'smooth' });
+            catalogueHook.SetScrollDown(false);
+        }
+    }, [catalogueHook?.currentScrollDown]);
 
     return<>
 
         
-        <div id="scrollableDiv" className="container-cards w-[100%] md:w-[80%] h-[600px] 2xl:h-[800px] flex flex-wrap overflow-y-scroll justify-center  mt-4 md:mt-0 ">
+        <div ref={scrollableDivRef} id="scrollableDiv" className="container-cards w-[100%] md:w-[80%] h-[600px] 2xl:h-[800px] flex flex-wrap overflow-y-scroll justify-center  mt-4 md:mt-0 ">
                     
             <InfiniteScroll
+                
                 scrollableTarget="scrollableDiv"
                 className='w-[100%] h-[100%] flex flex-wrap justify-center items-center'
                 dataLength={ catalogueHook.currentReferences?.length ?? 0} //This is important field to render the next data
@@ -47,7 +56,21 @@ const CardsInfinityScroll: React.FC<CardsInfinityScrollProps> = ({ systems, refe
                 
             >
             {
-                     !catalogueHook.currentReferencesLoading && catalogueHook.currentReferences !== undefined && catalogueHook.currentReferences !== null ?
+
+                catalogueHook.currentReference !== null && catalogueHook.currentReference ? 
+                    <CardReference
+                        key={catalogueHook.currentReference.id}
+                        name={catalogueHook.currentReference.name}
+                        reference={catalogueHook.currentReference.data.referencia}
+                        color={catalogueHook.currentReference.color}
+                        piecePerPackage={catalogueHook.currentReference.piecePerPackage}
+                        description={catalogueHook.currentReference.description}
+                        imgUrl3d={catalogueHook.currentReference.media.img2 || "https://cms.cominsur.com.co/cominsur/assets/a1q91wg7v280soso"}
+                        imgUrlPlane={catalogueHook.currentReference.media.img1 || "https://cms.cominsur.com.co/cominsur/assets/ovburjz6b0g4occc"}
+                    />
+                
+                :
+                !catalogueHook.currentReferencesLoading && catalogueHook.currentReferences !== undefined && catalogueHook.currentReferences !== null ?
                     catalogueHook.currentReferences.map( (reference) => (
                     <CardReference
                         key={reference.id}

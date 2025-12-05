@@ -7,6 +7,11 @@ class ReferencesServices {
         appDispatch({ type: actionType, payload: entity });
     }
 
+    setCurrentReference(actionType:string, reference:Reference | null, appDispatch:any): void {
+        
+        appDispatch({ type: actionType, payload: reference });
+    }
+
     setOffset(actionType:string, offset:number,  appDispatch:any): void {
         
         appDispatch({ type: actionType, payload: offset });
@@ -25,6 +30,11 @@ class ReferencesServices {
     setError(actionType:string, error:string | null,  appDispatch:any): void {
         
         appDispatch({ type: actionType, payload: error });
+    }
+
+    setScrollDown(actionType:string, scrollDown:boolean,  appDispatch:any): void {
+        
+        appDispatch({ type: actionType, payload: scrollDown });
     }
 
     async loadMoreReferences(limit: number, offset: number, system: string | number | null): Promise<Reference[]> {
@@ -52,6 +62,14 @@ class ReferencesServices {
             `${process.env.NEXT_PUBLIC_COMINSIR_API}/references?system=${systemId}&limit=${limit}&offset=${offset}`   
         ],'GET')
         return newReferences[0].data as Reference[];
+    }
+
+    async getReferencesById(referenceId: number): Promise<Reference >{
+        
+        const newReferences = await  NewRequests([
+            `${process.env.NEXT_PUBLIC_COMINSIR_API}/references?id=${referenceId}`,
+        ],'GET')
+        return newReferences[0].data as Reference;
     }
 
 

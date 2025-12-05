@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Reference from "@/backend/model/reference.model";
 import System from "@/backend/model/system.model";
 import useCatalogueHook from "@/frontend/hooks/use.catalogue";
@@ -14,7 +14,11 @@ type FiltersCatalogueProps = {
 
 const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references }) => {
 
-    const catalogueHook = useCatalogueHook({ systems: systems, references: references });
+    const catalogueHook = useCatalogueHook({ systems: systems, references: references });4
+    
+      // useRef when you need direct DOM access (e.g. measurements, focus)
+    const selectRef = useRef<HTMLSelectElement | null>(null);
+    
 
     // To avoid hydration mismatch: render using server-provided props on first paint (so server/client match).
     // After mount, if the redux store has data and props were not provided, adopt store data.
@@ -51,6 +55,7 @@ const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references
  
 
     const handleSystemChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
+        catalogueHook.SetCurrentReference( null );
         catalogueHook.SetReferencesLoading(true);
         const selectedSystem = event.target.value;
         // clear displayed references while the new ones load to avoid showing stale options
@@ -62,8 +67,40 @@ const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references
     const handleReferenceChange = ( event: React.ChangeEvent<HTMLSelectElement> ) => {
         const selectedReference = event.target.value;
         //look upfor the reference in store by id selectedReference and then update store to show only that reference
+        if (selectedReference === "todos") {
+            catalogueHook.SetCurrentReference( null );
+            return;
+        }
+
+        //when "ver mas" is selected, load more references into the store then scroll dwon to see them and keep current reference as null open again <select> and show the new references in this filter
+        if (selectedReference === "ver mas") {
+            // keep current reference null and trigger loading more references for the current system
+            catalogueHook.SetCurrentReference(null);
+            setDisplayReferences(null); // hide stale options while loading
+            catalogueHook.LoadMoreReferences(catalogueHook?.currentSystem);
+
+            // after a short delay, focus the select and scroll the filters container so the user sees the new items
+            setTimeout(() => {
+                const select = selectRef.current;
+
+                if (select) {
+                    // keep the select showing no selection
+                    select.value = "todos";
+                    select.focus();
+                }
+
+                catalogueHook.SetScrollDown(true);
+                setDisplayReferences(catalogueHook?.currentReferences);
+                
+            }, 300);
+
+            
+
+            return;
+        }
+
         const reference = catalogueHook.currentReferences?.find( (ref) => ref.id === parseInt(selectedReference) );
-        console.log("Referencia seleccionada:", reference);
+        catalogueHook.SetCurrentReference( reference || null );
 
     };
 
@@ -85,12 +122,13 @@ const FiltersCatalogue: React.FC<FiltersCatalogueProps> = ({ systems, references
 
                 <div className="select-references w-[94%] ml-[3%] md:mt-4">
                     <label htmlFor="references" className="text-[16px] font-semibold color-quaternary">Referencias</label>
-                    <select onChange={handleReferenceChange} id="references" className="w-[100%] h-[40px]  rounded-sm p-2 bg-gray-200 text-gray-600 ">
+                    <select ref={selectRef} onChange={handleReferenceChange} id="references" className="w-[100%] h-[40px]  rounded-sm p-2 bg-gray-200 text-gray-600 ">
                         <option value="todos">Seleccione una referencia</option>
                          <option value="todos">Todas  </option>
                             {displayReferences && displayReferences.map((reference) => (
                                 <option key={reference.id} value={reference.id}>{reference.name}</option>
                             ))}
+                        <option value="ver mas">Ver más</option>
                     </select>
                 </div>
 

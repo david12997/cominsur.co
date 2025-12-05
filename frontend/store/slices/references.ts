@@ -9,6 +9,8 @@ export interface ReferencesState {
     limit: number;
     loading: boolean;
     error: string | null;
+    currentReference?: Reference | null;
+    scrollDown: boolean;
 }
 
 const initialState: ReferencesState = {
@@ -17,6 +19,8 @@ const initialState: ReferencesState = {
     limit: 10,
     loading: false,
     error: null,
+    currentReference: null,
+    scrollDown: true, 
 };
 export const referencesSlice = createSlice({
     name: "references",
@@ -36,9 +40,15 @@ export const referencesSlice = createSlice({
         }
         ,setError(state, action: PayloadAction<string | null>) {
             state.error = action.payload;
+        },
+        setCurrentReference(state, action: PayloadAction<Reference | null>) {
+            state.currentReference = action.payload;
+        },
+        setScrollDown(state, action: PayloadAction<boolean>) {
+            state.scrollDown = action.payload;
         }
     },
 });
 
-export const { setReferences, setOffset, setLimit, setLoading, setError } = referencesSlice.actions;
+export const { setReferences, setOffset, setLimit, setLoading, setError, setCurrentReference, setScrollDown } = referencesSlice.actions;
 export default referencesSlice.reducer;
